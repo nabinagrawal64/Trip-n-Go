@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from "react";
-import { Bell, MoonStar, Sun, Search, Settings, SlidersHorizontal, User, Check, Car, Snowflake, DollarSign, Users, ChevronDown, Menu, ArrowLeft } from "lucide-react";
+import { Bell, MoonStar, Sun, Search, Settings, SlidersHorizontal, User, Check, Car, Snowflake, DollarSign, Users, ChevronDown, Menu, ArrowLeft, X } from "lucide-react";
 import { FaCheckSquare } from "react-icons/fa";
 import { FaRegStar  } from "react-icons/fa";
 import { useDarkMode } from './DarkModeProvider.jsx'
+import AuthPage from "../pages/AuthPage.jsx";
 
 const Navbar = () => {
     const { darkMode, toggleDarkMode } = useDarkMode();
@@ -13,6 +14,8 @@ const Navbar = () => {
     const [searchOpen, setSearchOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
     const [storedQuery, setStoredQuery] = useState("");
+    const [showLogin, setShowLogin] = useState(false);
+    
     const searchRef = useRef(null);
     const dropdownRef = useRef(null); 
     const menuRef = useRef(null);
@@ -99,6 +102,24 @@ const Navbar = () => {
             setSearchOpen(false); // Close search bar after enter
         }
     };
+
+    const NavigateToLoginPage = () => {
+        setShowLogin(true);
+    }
+
+    const handleCloseLogin = () => {
+        setShowLogin(false);
+    };
+
+    useEffect(() => {
+        if (showLogin) {
+            document.body.classList.add("overflow-hidden");
+        } else {
+            document.body.classList.remove("overflow-hidden");
+        }
+    
+        return () => document.body.classList.remove("overflow-hidden");
+    }, [showLogin]);
 
     return (
         <div className={`relative z-1 flex bg-black/25 transition-colors ${searchOpen ? "backdrop-blur-md" : "b"}  duration-500 xl:h-[90px] lg:h-[80px] md:h-[70px] sm:h-[60px] h-[50px]`}>
@@ -209,7 +230,7 @@ const Navbar = () => {
 
             {/* Right Side Icons */}
             <nav>
-                <div className="w-full xl:px-6 xl:py-7 lg:py-6 md:px-4 md:py-5 py-4 hidden sm:flex gap-5">
+                <div className=" bg-fixed w-full xl:px-6 xl:py-7 lg:py-6 md:px-4 md:py-5 py-4 hidden sm:flex gap-5">
                     {/* Dark Mode Toggle */}
                     <button 
                         onClick={toggleDarkMode}
@@ -235,9 +256,27 @@ const Navbar = () => {
                     <div className={`bg-white/15 items-center rounded-md h-[35px] px-1.5 py-1 transition-colors duration-500 text-white`}>
                         <User />
                     </div>
-                    <div className="w-[75px] items-center rounded-lg text-white">
-                        <span className={`text-xl font-semibold transition-colors duration-500 text-white`}>Log in</span>
-                    </div>
+                    
+                    {!showLogin ? (
+                        <div
+                            className="w-[75px] flex justify-center items-center cursor-pointer rounded-lg text-white"
+                            onClick={NavigateToLoginPage}
+                        >
+                            <span className="text-xl font-semibold transition-colors duration-500 text-white">
+                                Log in
+                            </span>
+                        </div>
+                    ) : (
+                        <div className="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+                            <button
+                                className="absolute top-20 right-20 cursor-pointer hover:scale-90 text-gray-200 hover:text-red-600 text-3xl z-50"
+                                onClick={handleCloseLogin}
+                            >
+                                <X size={30} />
+                            </button>
+                            <AuthPage />
+                        </div>
+                    )}
                 </div>
                 
                 {/* Hamburger Menu for Smaller screens */}
@@ -279,9 +318,22 @@ const Navbar = () => {
                                     <button className="flex cursor-pointer items-center px-3 py-3 hover:bg-gray-700">
                                         <Settings size={24} /> 
                                     </button>
-                                    <button className="flex cursor-pointer items-center px-3 py-4 hover:bg-gray-700">
-                                        <User size={24} /> 
-                                    </button>
+                                    
+                                    {!showLogin ? (
+                                        <button onClick={NavigateToLoginPage} className="flex cursor-pointer items-center px-3 py-4 hover:bg-gray-700">
+                                            <User size={24} /> 
+                                        </button>
+                                    ) : (
+                                        <div className="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+                                            <button
+                                                className="absolute top-20 right-5 cursor-pointer hover:scale-90 text-gray-200 hover:text-red-600 text-3xl z-50"
+                                                onClick={handleCloseLogin}
+                                            >
+                                                <X size={30} />
+                                            </button>
+                                            <AuthPage />
+                                        </div>
+                                    )}
                                     
                                 </div>
                             </div>
