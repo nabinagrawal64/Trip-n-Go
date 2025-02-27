@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 import HomePage from "./pages/HomePage";
 import { Layout } from "./components/Layout";
 import { ErrorPage } from "./pages/ErrorPage";
-import DashBoard from "./pages/DashBoard";
+import DashBoard from "./pages/Dashboard";
 
 const router = createBrowserRouter([
     {
