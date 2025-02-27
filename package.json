@@ -1,8 +1,20 @@
 {
   "name": "tripngo",
-  "private": true,
   "version": "0.0.0",
+  "private": true,
+  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
+  "homepage": "https://github.com/nabinagrawal64/Trip-n-Go#readme",
+  "bugs": {
+    "url": "https://github.com/nabinagrawal64/Trip-n-Go/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nabinagrawal64/Trip-n-Go.git"
+  },
+  "license": "ISC",
+  "author": "",
   "type": "module",
+  "main": "eslint.config.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
