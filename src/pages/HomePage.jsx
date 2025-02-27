@@ -10,7 +10,7 @@ import { Fade, Slide } from "react-awesome-reveal";
 import { motion } from "framer-motion";
 import ServiceCard from "../components/HomePage/Service";
 import CountUp from "../components/animation/Counter";
-import TestimonialSlider from "../components/HomePage/testimonials";
+import TestimonialSlider from "../components/HomePage/Testimonials";
 import { useState } from "react";
 
 const logoImgs = [
