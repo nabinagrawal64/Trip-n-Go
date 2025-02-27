@@ -1,31 +1,40 @@
 import { useState } from "react";
-import { Eye, EyeOff, } from "lucide-react";
+import { Eye, EyeOff, X, } from "lucide-react";
 
 //eslint-disable-next-line
-export default function LoginForm( {switchToSignup } ) {
+export default function LoginForm( {switchToSignup, handleCloseLogin } ) {
     const [showPassword, setShowPassword] = useState(false);
 
     return (
         <div className="flex items-center justify-center bg-[#1E1E1E]/80 backdrop-blur-lg">
-            <div className="bg-[#3A3A3A] sm:p-6 p-4 rounded-lg shadow-lg sm:w-80 w-60">
+            <div className="bg-[#3A3A3A] sm:p-6 p-4 rounded-lg shadow-lg sm:w-80 w-70">
                 
                 <h1 className={`transition-colors duration-100 flex items-center justify-center`}>
                     <img src="./logoDark.gif" alt="logo" className="xl:size-32 lg:size-28 md:size-24 size-20" />
                 </h1>
+
+                {/* close button */}
+                <button
+                    className="absolute top-4 right-4 cursor-pointer hover:scale-90 text-gray-200 hover:text-red-600 text-3xl z-50"
+                    onClick={handleCloseLogin}
+                >
+                    <X size={30} />
+                </button>
                 
                 <form action="">
+                    {/* email */}
                     <div>
-                        <label className="block text-white sm:text-sm text-xs mb-1">Email/Username</label>
+                        <label className="block text-white sm:text-sm text-xs mb-1">Email or Username :</label>
                         <input
                             type="text"
-                            autoFocus
-                            placeholder="Enter email/username"
+                            placeholder="Email or username"
                             className="w-full sm:pt-2 pt-1 mb-2 sm:placeholder:text-sm placeholder:text-xs text-white border-b-2 border-gray-500 focus:outline-none"
                         />
                     </div>
                     
+                    {/* password */}
                     <div>
-                        <label className="block text-white sm:text-sm text-xs mb-1">Password</label>
+                        <label className="block text-white sm:text-sm text-xs mb-1">Password :</label>
                         <div className="relative">
                             <input
                                 type={showPassword ? "text" : "password"}
@@ -57,7 +66,7 @@ export default function LoginForm( {switchToSignup } ) {
                     Log In
                 </button>
                 
-                <p className="text-left mx-1 text-gray-400 sm:text-xs text-[10px] sm:mt-3 mt-1">
+                <p className="text-left mx-1 text-gray-400 sm:text-xs text-[10px] mt-3">
                     Don’t have an account?{" "}
                     <span className="text-white cursor-pointer font-bold" onClick={switchToSignup}> Sign up</span>
                 </p>

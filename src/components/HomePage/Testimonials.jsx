@@ -14,7 +14,7 @@ const testimonials = [
         image: "https://randomuser.me/api/portraits/women/1.jpg",
         review: "Easy to Understand",
         text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
-        rating: "⭐⭐⭐⭐⭐",
+        rating: "⭐⭐⭐",
     },
     {
         id: 2,
@@ -32,33 +32,15 @@ const testimonials = [
         image: "https://randomuser.me/api/portraits/men/3.jpg",
         review: "Very Helpful",
         text: "This platform has helped me a lot in learning new things.",
-        rating: "⭐⭐⭐⭐⭐",
+        rating: "⭐⭐⭐⭐",
     },
     {
         id: 4,
-        name: "John Smith",
-        role: "Developer",
-        image: "https://randomuser.me/api/portraits/men/3.jpg",
-        review: "Very Helpful",
-        text: "This platform has helped me a lot in learning new things.",
-        rating: "⭐⭐⭐⭐⭐",
-    },
-    {
-        id: 5,
-        name: "John Smith",
-        role: "Developer",
-        image: "https://randomuser.me/api/portraits/men/3.jpg",
-        review: "Very Helpful",
-        text: "This platform has helped me a lot in learning new things.",
-        rating: "⭐⭐⭐⭐⭐",
-    },
-    {
-        id: 6,
-        name: "John Smith",
-        role: "Developer",
-        image: "https://randomuser.me/api/portraits/men/3.jpg",
-        review: "Very Helpful",
-        text: "This platform has helped me a lot in learning new things.",
+        name: "Jane Doe",
+        role: "Designer",
+        image: "https://randomuser.me/api/portraits/women/2.jpg",
+        review: "Highly Recommend",
+        text: "Great service and an amazing experience overall!",
         rating: "⭐⭐⭐⭐⭐",
     },
 ];
@@ -74,18 +56,18 @@ const TestimonialSlider = () => {
                     <div className="absolute md:left-[15px] sm:left-[10px] left-[8px] flex">
                         <img
                             src="https://carento-demo.vercel.app/assets/imgs/page/homepage1/testimonial3.png"
-                            alt="User"
+                            alt="User1"
                             className="lg:w-6 lg:h-6 sm:w-5 sm:h-5 w-4 h-4 rounded-full border-2 border-white shadow-md"
                         />
                         <img
                             src="https://carento-demo.vercel.app/assets/imgs/page/homepage1/testimonial3.png"
-                            alt="User"
+                            alt="User2"
                             className="lg:w-6 lg:h-6 sm:w-5 sm:h-5 w-4 h-4 rounded-full border-2 border-white shadow-md lg:-ml-3 md:-ml-2.5 -ml-2"
                         />
                         <img
                             src="https://carento-demo.vercel.app/assets/imgs/page/homepage1/testimonial3.png"
-                            alt="User"
-                            className="lg:w-6 lg:h-6 sm:w-5 sm:h-5 w-4 h-4 rounded-full border-2 border-white shadow-md md:-ml-3 md:-ml-2.5 -ml-2"
+                            alt="User3"
+                            className="lg:w-6 lg:h-6 sm:w-5 sm:h-5 w-4 h-4 rounded-full border-2 border-white shadow-md md:-ml-2.5 -ml-2"
                         />
                     </div>
 
@@ -108,7 +90,6 @@ const TestimonialSlider = () => {
                 slidesPerView={1}
                 loop={true}
                 autoplay={{ delay: 3000, disableOnInteraction: false }}
-                
                 breakpoints={{
                     200: { slidesPerView: 2, spaceBetween: 10 },
                     640: { slidesPerView: 2, spaceBetween: 50 },
@@ -117,15 +98,13 @@ const TestimonialSlider = () => {
                 className="max-w-4xl lg:max-w-5xl xl:max-w-6xl cursor-grab mx-auto px-2"
             >
                 {testimonials.map((testimonial) => (
-                    <FadeContent 
-                        key={testimonial.id} 
-                        blur={true} 
-                        duration={1200} 
-                        easing="ease-out" 
-                        initialOpacity={0}
-                    >
-                        
-                        <SwiperSlide>
+                    <SwiperSlide key={testimonial.id}>
+                        <FadeContent 
+                            blur={true} 
+                            duration={200} 
+                            easing="ease-out" 
+                            initialOpacity={0}
+                        >
                             <div className="bg-black/30 h-auto text-white lg:p-6 sm:p-5 p-4 rounded-lg shadow-lg text-xs">
                                 <h3 className="font-semibold sm:text-sm md:text-base lg:text-lg text-xs line-clamp-1">
                                     {testimonial.review}
@@ -152,8 +131,8 @@ const TestimonialSlider = () => {
                                     </span>
                                 </div>
                             </div>
-                        </SwiperSlide>
-                    </FadeContent>
+                        </FadeContent>
+                    </SwiperSlide>
                 ))}
             </Swiper>
 

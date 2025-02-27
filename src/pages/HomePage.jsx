@@ -1,17 +1,17 @@
 import "../styles.css"; 
 import { Calendar, CircleCheck, Search } from "lucide-react";
-import Navbar2 from "../components/Navbar2";
+// import Navbar2 from "../components/Navbar2";
+import Navbar from "../components/Navbar";
 import LogoWall from '../components/HomePage/LogoWall';
 import { useDarkMode } from '../components/DarkModeProvider'
 import Card from "../components/HomePage/Card";
-import AnimatedContent from '../components/animation/Animate'
 import FadeContent from '../components/animation/FadeContent'
-import SplitText from '../components/animation/SplitText';
 import { Fade, Slide } from "react-awesome-reveal";
 import { motion } from "framer-motion";
 import ServiceCard from "../components/HomePage/Service";
 import CountUp from "../components/animation/Counter";
 import TestimonialSlider from "../components/HomePage/testimonials";
+import { useState } from "react";
 
 const logoImgs = [
     // auto
@@ -34,7 +34,8 @@ const logoImgs = [
 ];
 
 const cars = [
-    {
+    {   
+        id: 1,
         image: "https://carento-demo.vercel.app/assets/imgs/cars-listing/cars-listing-1/car-1.png",
         name: "Audi A3 1.6 TDI S line",
         company: "Sahu Express",
@@ -44,7 +45,8 @@ const cars = [
         rating: "4.92",
         reviews: 672,
     },
-    {
+    {   
+        id: 2,
         image: "https://carento-demo.vercel.app/assets/imgs/cars-listing/cars-listing-1/car-2.png",
         name: "BMW X5 M Sport",
         company: "Royal Rides",
@@ -54,7 +56,8 @@ const cars = [
         rating: "4.85",
         reviews: 523,
     },
-    {
+    {   
+        id: 3,
         image: "https://carento-demo.vercel.app/assets/imgs/cars-listing/cars-listing-1/car-3.png",
         name: "Mercedes-Benz GLC",
         company: "Luxury Wheels",
@@ -64,7 +67,8 @@ const cars = [
         rating: "4.78",
         reviews: 601,
     },
-    {
+    {   
+        id: 4,
         image: "https://carento-demo.vercel.app/assets/imgs/cars-listing/cars-listing-1/car-4.png",
         name: "Hyundai Creta SX",
         company: "Smart Rentals",
@@ -74,7 +78,8 @@ const cars = [
         rating: "4.65",
         reviews: 482,
     },
-    {
+    {   
+        id: 5,
         image: "https://carento-demo.vercel.app/assets/imgs/cars-listing/cars-listing-1/car-5.png",
         name: "Toyota Fortuner",
         company: "Elite Cars",
@@ -84,7 +89,8 @@ const cars = [
         rating: "4.90",
         reviews: 715,
     },
-    {
+    {   
+        id:6,
         image: "https://carento-demo.vercel.app/assets/imgs/cars-listing/cars-listing-1/car-1.png",
         name: "Audi A3 1.6 TDI S line",
         company: "Sahu Express",
@@ -126,6 +132,14 @@ const services = [
 export default function HomePage() {
     const { darkMode } = useDarkMode();
 
+    const getFormattedDateTime = () => {
+        const now = new Date();
+        return now.toISOString().slice(0, 16); // Removes seconds and milliseconds
+    };
+
+    const [endDateTime, setEndDateTime] = useState(getFormattedDateTime());
+    const [startDateTime, setStartDateTime] = useState(getFormattedDateTime());
+
     //eslint-disable-next-line
     function Feature({ text }) {
         return (
@@ -136,9 +150,10 @@ export default function HomePage() {
         );
     }
 
-    const handleAnimationComplete = () => {
-        console.log('All letters have animated!');
-    };
+    // const endTime = endDateTime.slice(11,16);
+    // const startDate = startDateTime.slice(0,10);
+    // const startTime = startDateTime.slice(11,16);
+    // const endDate = endDateTime.slice(0,10);
 
     return (
         <div className="relative w-full flex flex-col bg-black/80">
@@ -149,61 +164,91 @@ export default function HomePage() {
             >
 
                 {/* Navbar */}
-                <div > <Navbar2 /> </div>
+                <div > <Navbar /> </div>
                 
                 {/* text section */}
-                <AnimatedContent
-                    distance={130}
-                    direction="vertical"
-                    reverse={false}
-                    config={{ tension: 55, friction: 20 }}
-                    initialOpacity={0.2}
-                    animateOpacity
-                    scale={0.8}
-                    threshold={0.1}
+                <motion.section
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    className="relative inset-x-0 flex flex-col transition-all duration-300 ease-in-out mx-10 sm:mx-12 md:mx-16 lg:mx-24 xl:mx-40 md:mt-36 mt-16"
                 >
-                    <section className="relative inset-x-0 flex flex-col transition-all duration-300 ease-in-out mx-10 sm:mx-12 md:mx-16 lg:mx-24 xl:mx-40 md:mt-36  mt-16">
-                        {/* Subtitle */}
-                        <h4 className={`sm:text-lg text-sm md:text-xl font-semibold mb-2 ${darkMode ? "text-cyan-400" : "text-blue-600"}`}>
-                            Find Your Perfect Car
-                        </h4>
+                    {/* Subtitle */}
+                    <motion.h4
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2, duration: 0.6 }}
+                        className={`sm:text-lg text-sm md:text-xl font-semibold mb-2 ${darkMode ? "text-cyan-400" : "text-blue-600"}`}
+                    >
+                        Find Your Perfect Car
+                    </motion.h4>
 
-                        {/* Main Heading */}
-                        <h1 className={`font-bold leading-tight ${darkMode ? "text-white" : "text-gray-900"} 
-                            sm:text-3xl text-2xl md:text-4xl lg:text-5xl xl:text-6xl`}>
-                            Looking for a vehicle? <br className="" /> You’re in the perfect spot.
-                        </h1>
+                    {/* Main Heading */}
+                    <motion.h1
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.4, duration: 0.6 }}
+                        className={`font-bold leading-tight ${darkMode ? "text-white" : "text-gray-900"} 
+                            sm:text-3xl text-2xl md:text-4xl lg:text-5xl xl:text-6xl`}
+                    >
+                        Looking for a vehicle? <br /> You’re in the perfect spot.
+                    </motion.h1>
 
-                        {/* Feature List */}
-                        <div className="flex md:flex-row flex-col font-base lg:mx-4 sm:mx-3 mx-2 gap-4 sm:gap-2 lg:gap-5 xl:gap-18 mt-6 w-full max-w-3xl ">
-                            <div className="flex items-center md:gap-1 gap-2 text-white/90">
-                                <CircleCheck className="text-cyan-400 w-6 h-6 md:w-5 md:h-5 lg:w-6 lg:h-6 xl:w-7 xl:h-7" />
-                                <h3 className="xl:text-[15px] lg:text-[13px] md:text-[10px] text-[13px]">High quality at a low cost.</h3>
-                            </div>
-                            <div className="flex items-center md:gap-1 gap-2 text-white/90">
-                                <CircleCheck className="text-cyan-400 w-6 h-6 md:w-5 md:h-5 lg:w-6 lg:h-6 xl:w-7 xl:h-7" />
-                                <h3 className="xl:text-[15px] lg:text-[13px] md:text-[10px] text-[13px]">Premium services.</h3>
-                            </div>
-                            <div className="flex items-center md:gap-1 gap-2 text-white/90">
-                                <CircleCheck className="text-cyan-400 w-6 h-6 md:w-5 md:h-5 lg:w-6 lg:h-6 xl:w-7 xl:h-7" />
-                                <h3 className="xl:text-[15px] lg:text-[13px] md:text-[10px] text-[13px]">24/7 roadside support.</h3>
-                            </div>
-                        </div>
-                    </section>
-                </AnimatedContent>
+                    {/* Feature List */}
+                    <motion.div
+                        initial="hidden"
+                        animate="visible"
+                        variants={{
+                            hidden: { opacity: 0 },
+                            visible: {
+                                opacity: 1,
+                                transition: { staggerChildren: 0.3 }
+                            }
+                        }}
+                        className="flex md:flex-row flex-col font-base lg:mx-4 sm:mx-3 mx-2 gap-4 sm:gap-2 lg:gap-5 xl:gap-18 mt-6 w-full max-w-3xl"
+                    >
+                        {[
+                            "High quality at a low cost.",
+                            "Premium services.",
+                            "24/7 roadside support."
+                        ].map((text, index) => (
+                            <motion.div
+                                key={index}
+                                variants={{
+                                    hidden: { opacity: 0, x: -20 },
+                                    visible: { opacity: 1, x: 0 }
+                                }}
+                                transition={{ duration: 0.5, ease: "easeOut" }}
+                                className="flex items-center md:gap-1 gap-2 text-white/90"
+                            >
+                                <motion.div
+                                    initial={{ scale: 0 }}
+                                    animate={{ scale: 1 }}
+                                    transition={{ type: "spring", stiffness: 200, delay: 0.2 * index }}
+                                >
+                                    <CircleCheck className="text-cyan-400 w-6 h-6 md:w-5 md:h-5 lg:w-6 lg:h-6 xl:w-7 xl:h-7" />
+                                </motion.div>
+                                <h3 className="xl:text-[15px] lg:text-[13px] md:text-[10px] text-[13px]">{text}</h3>
+                            </motion.div>
+                        ))}
+                    </motion.div>
+                </motion.section>
 
                 {/* Search Section */} 
                 <Fade blur={true} duration={5000} triggerOnce easing="ease-out" initialOpacity={0}>               
-                <div className={`flex sm:flex-row flex-col xl:w-[1000px] lg:w-[800px] md:w-[600px] sm:w-[500px] w-[300px] items-center lg:gap-8 md:gap-4 sm:gap-3 gap-2 absolute sm:bottom-[4%] bottom-[12%] inset-x-0 mx-auto ${darkMode ? "bg-black" : "bg-gray-400"} rounded-xl shadow-lg  xl:px-20 lg:px-16 md:px-12 sm:px-10 px-5 py-6 xl:py-8 lg:py-7 md:py-6 sm:py-5  transition-all duration-300 ease-in-out`}
-                >
+                <div className={`flex sm:flex-row flex-col xl:w-[1000px] lg:w-[800px] md:w-[600px] sm:w-[500px] w-[300px] items-center lg:gap-8 md:gap-4 sm:gap-3 gap-2 absolute sm:bottom-[4%] bottom-[12%] inset-x-0 mx-auto ${darkMode ? "bg-black" : "bg-gray-400"} rounded-xl shadow-lg  xl:px-20 lg:px-16 md:px-12 sm:px-10 px-5 py-6 xl:py-8 lg:py-7 md:py-6 sm:py-5  transition-all duration-300 ease-in-out`}>
                     {/* Start Date */}
                     <div className="flex flex-col w-full sm:w-auto">
-                        <label className={`${darkMode ? "text-gray-400" : "text-gray-700"} md:text-sm text-xs mb-1`}>Start Date & Time</label>
+                        <label htmlFor="start-date-time" className={`${darkMode ? "text-gray-400" : "text-gray-700"} md:text-sm text-xs mb-1`}>Start Date & Time</label>
                         <div className="flex items-center bg-gray-900 lg:px-4 sm:px-3 px-2 py-2 rounded-lg">
                             <Calendar className="text-gray-400 h-2.5 w-2.5 sm:h-3.5 sm:w-3.5 lg:h-4.5 lg:w-4.5" size={18} />
-                            <select className="bg-transparent text-white lg:text-sm text-xs outline-none lg:ml-2 ml-1">
-                                <option>Thu, Oct 01 2024</option>
-                            </select>
+                            <input 
+                                id="start-date-time"
+                                type="datetime-local"
+                                value={startDateTime}
+                                onChange={(e) => setStartDateTime(e.target.value)} 
+                                className="bg-transparent text-white lg:text-sm text-xs outline-none lg:ml-2 ml-1"
+                            />
                         </div>
                     </div>
 
@@ -212,12 +257,19 @@ export default function HomePage() {
 
                     {/* End Date */}
                     <div className="flex flex-col w-full sm:w-auto">
-                        <label className={`${darkMode ? "text-gray-400" : "text-gray-700"} md:text-sm text-xs mb-1`}>End Date & Time</label>
+                        <label htmlFor="end-date-time" className={`${darkMode ? "text-gray-400" : "text-gray-700"} md:text-sm text-xs mb-1`}>
+                            Select End Date & Time
+                        </label>
                         <div className={`flex items-center ${darkMode ? "bg-gray-900" : "bg-black/45"} lg:px-4 sm:px-3 px-2 py-2 rounded-lg`}>
-                            <Calendar className={`${darkMode ? "text-gray-400 " : "text-gray-800 "} h-2.5 w-2.5 sm:h-3.5 sm:w-3.5 lg:h-4.5 lg:w-4.5`} size={18} />
-                            <select className={`bg-transparent ${darkMode ? "text-white " : "text-gray-800 "} lg:text-sm text-xs outline-none lg:ml-2 ml-1`}>
-                                <option>Thu, Oct 01 2024</option>
-                            </select>
+                            <Calendar className={`${darkMode ? "text-gray-400" : "text-gray-800"} h-2.5 w-2.5 sm:h-3.5 sm:w-3.5 lg:h-4.5 lg:w-4.5`} size={18} />
+                            
+                            <input
+                                id="end-date-time"
+                                type="datetime-local"
+                                value={endDateTime}
+                                onChange={(e) => setEndDateTime(e.target.value)}
+                                className="bg-transparent text-white lg:text-sm text-xs outline-none lg:ml-2 ml-1"
+                            />
                         </div>
                     </div>
 
@@ -266,9 +318,9 @@ export default function HomePage() {
                 </Slide>
                 
                 <div className="gap-y-6 ml-5 sm:ml-10 lg:ml-20 xl:ml-32 grid grid-cols-3 items-center justify-center">
-                    {cars.map((car, index) => (
+                    {cars.map((car) => (
                         <FadeContent 
-                            key={index} 
+                            key={car.id} 
                             blur={true} 
                             duration={1200} 
                             easing="ease-out" 
@@ -341,33 +393,26 @@ export default function HomePage() {
             {/* Car Rental Experience */}
             <div className="relative bg-cover bg-center max-w-[85%] mx-auto my-10 rounded-2xl text-white py-16 px-8" style={{ backgroundImage: "url('/images/experience-bg.png')" }}>
                 <div className="text-center max-w-4xl mx-auto">
-                    <SplitText
-                        text="How It Works"
+                    {/* Subtitle */}
+                    <motion.p
+                        initial={{ opacity: 0, y: 50 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
                         className="md:text-sm text-xs uppercase tracking-widest"
-                        delay={20}
-                        animationFrom={{ opacity: 0, transform: 'translate3d(0,50px,0)' }}
-                        animationTo={{ opacity: 1, transform: 'translate3d(0,0,0)' }}
-                        easing="easeOutCubic"
-                        threshold={0.2}
-                        rootMargin="-50px"
-                        onLetterAnimationComplete={handleAnimationComplete}
-                    />
-                    <br />
-                    <SplitText
-                        text="Presenting Your New Go-To Car Rental Experience"
+                    >
+                        How It Works
+                    </motion.p>
+
+                    {/* Main Heading */}
+                    <motion.h2
+                        initial={{ opacity: 0, y: 50 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
                         className="md:text-4xl text-2xl sm:text-3xl font-bold mt-2"
-                        delay={50}
-                        animationFrom={{ opacity: 0, transform: 'translate3d(0,50px,0)' }}
-                        animationTo={{ opacity: 1, transform: 'translate3d(0,0,0)' }}
-                        easing="easeOutCubic"
-                        threshold={0.2}
-                        rootMargin="-50px"
-                        onLetterAnimationComplete={handleAnimationComplete}
-                    />
-                    {/* <p className="text-sm uppercase tracking-widest">How It Works</p>
-                    <h2 className="text-4xl font-bold mt-2">Presenting Your New Go-To Car Rental Experience</h2> */}
+                    >
+                        Presenting Your New Go-To Car Rental Experience
+                    </motion.h2>
                 </div>
-                    
                 {/* Logo */}
                 <div className="grid sm:grid-cols-4 grid-cols-2 gap-8 mt-12 text-center">
                     <div>
@@ -458,6 +503,7 @@ export default function HomePage() {
                         </p>
                     </div>
                 </Slide>
+
                 <div className="grid sm:grid-cols-4 grid-cols-2 gap-10">
                     {services.map((service) => (
                         <FadeContent 
@@ -509,8 +555,8 @@ export default function HomePage() {
                             </div>
                         </div>
                     </Slide>
+                    
                     {/* Images Section */}
-
                     <Slide direction="up" triggerOnce>
                         <div className="relative mt-8 md:mt-0 ">
                             <img
