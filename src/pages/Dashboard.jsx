@@ -1,5 +1,5 @@
-import UserDashboard from "../components/Dashboard/User"
-import Admin from "../components/Dashboard/Admin"
+import UserDashboard from "../components/Dashboard/user/User"
+import Admin from "../components/Dashboard/admin/Admin"
 
 const Dashboard = () => {
     return (

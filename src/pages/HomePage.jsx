@@ -44,6 +44,7 @@ const cars = [
         price: "12",
         rating: "4.92",
         reviews: 672,
+        review: "The Audi A3 offers an incredibly smooth and comfortable ride with a touch of luxury. The interiors are spacious, and the fuel efficiency is impressive for a car of this class. A great choice for city drives and long road trips!"
     },
     {   
         id: 2,
@@ -55,6 +56,7 @@ const cars = [
         price: "15",
         rating: "4.85",
         reviews: 523,
+        review: "The BMW X5 M Sport is a powerhouse on the road. It combines performance with comfort seamlessly. The handling is exceptional, and the premium features make every ride feel first-class. Highly recommended for those who love driving in style!"
     },
     {   
         id: 3,
@@ -66,6 +68,7 @@ const cars = [
         price: "13",
         rating: "4.78",
         reviews: 601,
+        review: "The Mercedes-Benz GLC provides a premium driving experience with top-notch safety features and luxurious interiors. It's perfect for both city commuting and highway cruising, offering a smooth and quiet ride."
     },
     {   
         id: 4,
@@ -77,6 +80,7 @@ const cars = [
         price: "10",
         rating: "4.65",
         reviews: 482,
+        review: "The Hyundai Creta SX is an excellent choice for those looking for a reliable and stylish SUV. It has a powerful engine, good mileage, and an infotainment system that keeps you entertained on the go."
     },
     {   
         id: 5,
@@ -88,9 +92,10 @@ const cars = [
         price: "14",
         rating: "4.90",
         reviews: 715,
+        review: "The Toyota Fortuner is the ultimate SUV for adventure lovers. It offers a commanding driving position, a spacious cabin, and excellent off-road capabilities. A great choice for family trips and rugged terrains!"
     },
     {   
-        id:6,
+        id: 6,
         image: "https://carento-demo.vercel.app/assets/imgs/cars-listing/cars-listing-1/car-1.png",
         name: "Audi A3 1.6 TDI S line",
         company: "Sahu Express",
@@ -99,8 +104,10 @@ const cars = [
         price: "12",
         rating: "4.92",
         reviews: 672,
-    },
+        review: "The Audi A3 provides a premium experience with smooth acceleration and a well-designed interior. It's an excellent choice for those looking for a combination of performance and elegance."
+    }
 ];
+
 
 const services = [
     {
