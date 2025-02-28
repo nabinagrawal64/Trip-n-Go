@@ -64,9 +64,9 @@ export default function CarDetails() {
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }} // Ensures animation triggers when 20% of the section is in view
-            transition={{ duration: 1 }}
+            transition={{ duration: 0.5 }}
         >
-            <div><Navbar/></div>
+            <div className=""><Navbar/></div>
 
             {/* back button */}
             <motion.button  
@@ -301,7 +301,11 @@ export default function CarDetails() {
                                 </div>
 
                                 {/* Divider */}
-                                <motion.hr className="border-gray-600 ml-6 my-3" initial={{ width: 0 }} whileInView={{ width: "100%" }} transition={{ duration: 0.5 }} />
+                                <motion.hr 
+                                    className="border-gray-600 sm:ml-6 ml-0 my-3" 
+                                    initial={{ width: 0 }} 
+                                    whileInView={{ width: "100%" }} 
+                                    transition={{ duration: 0.5 }} />
 
                                 {/* Review Text */}
                                 <motion.p

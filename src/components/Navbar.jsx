@@ -117,9 +117,9 @@ const Navbar = () => {
 
     return (
         <div className={`relative z-1 flex bg-black/25 transition-colors ${searchOpen ? "backdrop-blur-md" : "b"}  duration-500 xl:h-[90px] lg:h-[80px] md:h-[70px] sm:h-[60px] h-[50px]`}>
-            <nav className="w-full px-6 py-3 flex sm:gap-5 gap-2 items-center backdrop-blur-[2px]">
+            <nav className="w-full sm:px-6 px-3 py-3 flex sm:gap-5 gap-2 items-center backdrop-blur-[2px]">
                 {/* Logo */}
-                <h1 className={`transition-colors duration-500 sm:translate-x-0 -translate-x-2`}>
+                <h1 className={`transition-colors duration-500 `}>
                     <img src="/logoDark.gif" alt="logo" className="xl:size-32 lg:size-28 md:size-24 size-20" />
                 </h1>
 
@@ -133,7 +133,7 @@ const Navbar = () => {
                     <input
                         type="text"
                         placeholder="Search"
-                        className={`ml-2 bg-transparent outline-none transition-colors duration-500 w-ful placeholder:font-light lg:placeholder:text-lg placeholder:text-sm text-white placeholder-white w-full`}
+                        className={`ml-2 bg-transparent outline-none transition-colors duration-500 placeholder:font-light lg:placeholder:text-lg placeholder:text-sm text-white placeholder-white w-full`}
                     />
                 </div>
 
@@ -224,11 +224,11 @@ const Navbar = () => {
 
             {/* Right Side Icons */}
             <nav>
-                <div className=" bg-fixed w-full xl:px-6 xl:py-7 lg:py-6 md:px-4 md:py-5 py-4 flex md:gap-5 sm:gap-4 gap-2">
+                <div className=" bg-fixed w-full xl:px-6 xl:py-7 lg:py-6 md:px-4 md:py-5 py-4 flex md:gap-5 sm:gap-4 gap-0.5">
                     {/* Dark Mode Toggle */}
                     <button 
                         onClick={toggleDarkMode}
-                        className="relative sm:w-[70px] w-[50px] sm:h-8 h-6 lg:my-1 sm:mt-0 -mt-0.5 bg-gray-300 dark:bg-white/15 rounded-full flex items-center p-2 transition-colors duration-500"
+                        className="relative sm:w-[70px] w-[50px] sm:mr-0 mr-2 sm:h-8 h-6 lg:my-1 sm:mt-0 -mt-0.5 bg-gray-300 dark:bg-white/15 rounded-full flex items-center p-2 transition-colors duration-500"
                     >
                         <div className={`absolute sm:w-6 sm:h-6 h-4.5 w-4.5 bg-white rounded-full shadow-md transform transition-transform duration-500 ${darkMode ? "sm:translate-x-8 translate-x-5" : "sm:translate-x-0 -translate-x-1"}`}></div>
                         <div className={`absolute left-2.5 ${darkMode ? "text-white" : "text-black"}`}>
