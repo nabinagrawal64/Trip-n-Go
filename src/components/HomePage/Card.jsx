@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
     FaMapMarkerAlt,
     FaUserFriends,
@@ -7,7 +8,6 @@ import {
 import { useNavigate } from "react-router";
 
 
-//eslint-disable-next-line
 export default function CarCard ({car}) {
 
     const navigate = useNavigate();
