@@ -13,15 +13,14 @@ export default function CarCard ({car}) {
     const navigate = useNavigate();
 
     return (
-        <div className="xl:w-[320px] lg:w-[300px] md:w-[210px] sm:w-[170px] w-[110px] bg-[#313131] text-white rounded-xl overflow-hidden shadow-lg">
+        <div onClick={() => navigate(`/cars/${car.id}`, { state: { car } })} className="xl:w-[320px] lg:w-[300px] md:w-[210px] sm:w-[170px] w-[110px] bg-[#313131] text-white rounded-xl cursor-pointer hover:scale-105 transition-all duration-500 hover:shadow-md hover:shadow-amber-50 overflow-hidden shadow-lg">
             {/* Car Image */}
-            <div className="relative">
-            <img
-                src={car?.image}
-                alt={car?.name}
-                className="w-auto h-auto cursor-pointer"
-                onClick={() => navigate(`/cars/${car.id}`, { state: { car } })}
-            />
+            <div className="relative" >
+                <img
+                    src={car?.image}
+                    alt={car?.name}
+                    className="w-auto h-auto"
+                />
 
                 <div className="absolute xl:-bottom-4 md:-bottom-3 -bottom-2 lg:right-2 sm:right-1 right-0.5 bg-black lg:px-2 px-1 lg:text-xs rounded-md flex items-center gap-1">
                     <span className="text-blue-400 lg:text-lg md:text-[16px] sm:text-[13px] text-[10px]">★</span>

@@ -95,7 +95,7 @@ export default function CarDetails() {
                 onClick={() => navigate(-1)}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }} 
-                className="absolute sm:left-5 left-3 lg:top-23 xl:top-27 md:top-20 sm:top-15 top-14 sm mb-4 lg:text-base sm:text-sm text-xs"
+                className="absolute cursor-pointer sm:left-5 left-3 lg:top-23 xl:top-27 md:top-20 sm:top-15 top-14 sm mb-4 lg:text-base sm:text-sm text-xs"
             >
                 &larr;
             </motion.button> 
