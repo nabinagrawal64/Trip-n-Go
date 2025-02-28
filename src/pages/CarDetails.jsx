@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import {FaMapMarkerAlt, FaStar, FaTaxi, FaSnowflake, FaWheelchair, FaGasPump, FaBed, FaUsers,} from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Navbar from "../components/Navbar";
 
@@ -10,6 +10,11 @@ export default function CarDetails() {
     const [showFull, setShowFull] = useState(false);
     const car = location.state?.car;
     console.log(car)
+
+    useEffect(() => {
+        window.scrollTo(0, 0); // Page load hone ke turant baad top pe scroll karega
+    }, []);
+
     const reviews = [
         {
             reviewer: "Rahul Sharma",
@@ -56,9 +61,10 @@ export default function CarDetails() {
     return (
         <motion.div 
             className="bg-[#212121] text-white w-full mx-auto"
-            initial={{ opacity: 0 }} 
-            animate={{ opacity: 1 }} 
-            transition={{ duration: 0.5 }}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }} // Ensures animation triggers when 20% of the section is in view
+            transition={{ duration: 1 }}
         >
             <div><Navbar/></div>
 
@@ -147,26 +153,33 @@ export default function CarDetails() {
                 {/* Features */}
                 <motion.div 
                     className="xl:p-8 lg:p-5 sm:p-3 p-4 lg:max-w-[97%] sm:max-w-[95%] max-w-[93%] ml-4 mx-auto rounded-lg border border-gray-600 w-full"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.5, duration: 1 }}
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
                 >
                     <div className="grid sm:grid-cols-5 grid-cols-2 xl:gap-x-8 lg:gap-x-6 sm:gap-x-3 sm:gap-y-5 gap-x-4 gap-y-2">
                         {details.map((item, index) => (
-                        <motion.div
-                            key={index}
-                            whileHover={{ scale: 1.1 }}
-                            className="bg-[#466F7F] text-white flex items-center justify-center lg:gap-2 sm:gap-1.5 gap-1 xl:p-5 lg:p-3 sm:py-2 sm:px-1 p-1.5 rounded-md xl:text-lg lg:text-base md:text-sm text-xs"
-                        >
-                            {item.icon} <span className="xl:text-sm lg:text-xs text-[10px] line-clamp-1">{item.text}</span>
-                        </motion.div>
+                            <motion.div
+                                key={index}
+                                whileHover={{ scale: 1.1 }}
+                                initial={{ opacity: 0, y: 20, scale: 0.8 }}
+                                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5, delay: index * 0.1 }}
+                                className="bg-[#466F7F] text-white flex items-center justify-center lg:gap-2 sm:gap-1.5 gap-1 xl:p-5 lg:p-3 sm:py-2 sm:px-1 p-1.5 rounded-md xl:text-lg lg:text-base md:text-sm text-xs"
+                            >
+                                {item.icon} <span className="xl:text-sm lg:text-xs text-[10px] line-clamp-1">{item.text}</span>
+                            </motion.div>
                         ))}
                     </div>
                 </motion.div>
 
                 {/* Overview */}
                 <motion.div className="m-6"
-                    initial={{ x: -100, opacity: 0 }}
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ duration: 1 }}
                 >
@@ -191,7 +204,9 @@ export default function CarDetails() {
                 {/* Average total rating & Reviews */}
                 <motion.div 
                     className="mt-6"
-                    initial={{ opacity: 0 }}
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.2 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1, ease: "easeOut" }}
                 >
@@ -200,6 +215,8 @@ export default function CarDetails() {
                         <div className="border border-gray-500 lg:w-[200px] sm:w-[160px] w-[100px] lg:mx-5 md:mx-3 flex flex-col items-center sm:space-y-3 space-y-1 rounded-lg sm:p-6 p-3 text-center">
                             <motion.p 
                                 initial={{ scale: 0.8, opacity: 0 }} 
+                                whileInView={{ scale: 1, opacity: 1 }}
+                                viewport={{ once: true }} 
                                 animate={{ scale: 1, opacity: 1 }} 
                                 transition={{ duration: 0.5, delay: 0.2 }}
                                 className="lg:text-[28px] sm:text-xl text-sm font-bold"
@@ -209,13 +226,16 @@ export default function CarDetails() {
                             <motion.p 
                                 initial={{ opacity: 0 }} 
                                 animate={{ opacity: 1 }} 
+                                viewport={{ once: true }}
                                 transition={{ duration: 0.6, delay: 0.3 }} 
                                 className="text-gray-400 lg:text-lg sm:text-[15px] text-[10px]"
                             >
                                 ({car.reviews} reviews)
                             </motion.p>
                             <motion.div 
-                                initial={{ scale: 0.5, opacity: 0 }} 
+                                initial={{ scale: 0.8, opacity: 0 }} 
+                                whileInView={{ scale: 1, opacity: 1 }}
+                                viewport={{ once: true }}  
                                 animate={{ scale: 1, opacity: 1 }} 
                                 transition={{ duration: 0.4, delay: 0.4 }} 
                                 className="flex justify-center sm:mt-2 mt-1 sm:gap-1 gap-0.5 text-cyan-400"
@@ -231,7 +251,8 @@ export default function CarDetails() {
                 {/* Individual rating & Reviews */}
                 <motion.div 
                     initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true, amount: 0.2 }}
                     transition={{ duration: 1 }}
                     className="lg:p-12 md:p-8 sm:p-6 px-6 py-3 text-white rounded-lg shadow-lg mx-auto w-full"
                 >
@@ -240,7 +261,8 @@ export default function CarDetails() {
                         <motion.div
                             key={index}
                             initial={{ opacity: 0, y: 50 }}
-                            animate={{ opacity: 1, y: 0 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
                             transition={{ duration: 0.5, delay: index * 0.2 }}
                             className="rounded-lg w-full mb-4"
                         >
@@ -253,7 +275,8 @@ export default function CarDetails() {
                                             alt="Profile"
                                             className="lg:w-20 lg:h-20 md:h-16 md:w-16 w-10 h-10 rounded-full"
                                             initial={{ scale: 0.8 }}
-                                            animate={{ scale: 1 }}
+                                            whileInView={{ scale: 1 }}
+                                            viewport={{ once: true }}
                                             transition={{ duration: 0.3 }}
                                         />
                                         <div>
@@ -266,7 +289,8 @@ export default function CarDetails() {
                                     <motion.div
                                         className="flex text-cyan-400 mt-10"
                                         initial={{ scale: 0.8 }}
-                                        animate={{ scale: 1 }}
+                                        whileInView={{ scale: 1 }}
+                                        viewport={{ once: true }}
                                         transition={{ duration: 0.3, delay: 0.2 }}
                                     >
                                         {[...Array(4)].map((_, i) => (
@@ -277,12 +301,14 @@ export default function CarDetails() {
                                 </div>
 
                                 {/* Divider */}
-                                <motion.hr className="border-gray-600 ml-6 my-3" initial={{ width: 0 }} animate={{ width: "100%" }} transition={{ duration: 0.5 }} />
+                                <motion.hr className="border-gray-600 ml-6 my-3" initial={{ width: 0 }} whileInView={{ width: "100%" }} transition={{ duration: 0.5 }} />
 
                                 {/* Review Text */}
                                 <motion.p
                                     initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }} 
+                                    whileInView={{ opacity: 1 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.5, delay: 0.2 }}
                                     className="text-gray-300 lg:text-base md:text-sm sm:text-xs text-[10px] leading-relaxed"
                                 >
                                     {review.comment}
@@ -295,7 +321,8 @@ export default function CarDetails() {
                     <motion.div
                         className="flex text-black justify-center sm:mt-6 mt-3"
                         initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
                         transition={{ duration: 0.4 }}
                     >
                         <button className="flex items-center bg-[#00E1FF] lg:px-6 lg:py-2 sm:px-4 sm:py-1.5 px-2 py-1 rounded-lg font-semibold hover:bg-[#00e1ffb4]">
