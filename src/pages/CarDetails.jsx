@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useLocation, useNavigate } from "react-router-dom";
 import {FaMapMarkerAlt, FaStar, FaTaxi, FaSnowflake, FaWheelchair, FaGasPump, FaBed, FaUsers,} from "react-icons/fa";
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence  } from "framer-motion";
 import Navbar from "../components/Navbar";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function CarDetails() {
     const location = useLocation();
@@ -59,6 +61,25 @@ export default function CarDetails() {
         "https://carento-demo.vercel.app/assets/imgs/cars-listing/cars-listing-1/car-4.png"
     ];
 
+    const [images, setImages] = useState(carImages);
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+    const nextSlide = () => {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    };
+
+    const prevSlide = () => {
+        setCurrentIndex((prevIndex) =>
+            prevIndex === 0 ? images.length - 1 : prevIndex - 1
+        );
+    };
+
+    const handleImageClick = (index) => {
+        const newImages = [...images];
+        [newImages[0], newImages[index]] = [newImages[index], newImages[0]];
+        setImages(newImages);
+    };
+
     return (
         <motion.div 
             className="bg-[#212121] text-white w-full mx-auto"
@@ -109,16 +130,37 @@ export default function CarDetails() {
                 <div className="flex sm:flex-row flex-col sm:mt-3 mt-2 sm:p-4 p-2 rounded-lg">
                     {/* Main Image */}
                     <motion.div 
-                        className="flex-1"
+                        className="flex-1 relative"
+                        key={images[currentIndex]}
                         initial={{ scale: 0.9 }}
                         animate={{ scale: 1 }}
                         transition={{ duration: 1 }}    
-                    >
-                        <img
-                            src={carImages[0]}
-                            alt="Car"
-                            className="w-full xl:h-[500px] lg:h-[450px] md:h-[350px] sm:h-[250px] object-cover rounded-lg"
-                        />
+                    >      
+                        <button
+                            onClick={prevSlide}
+                            className="absolute left-[2%] cursor-pointer top-[50%] z-10 bg-black/40 text-white lg:p-2 sm:p-1 rounded-full hover:bg-gray-800"
+                        >
+                            <ChevronLeft />
+                        </button>
+
+                        <AnimatePresence mode="wait">
+                            <motion.img
+                                key={images[currentIndex]} // Ensures re-rendering
+                                src={images[currentIndex]}
+                                alt="Car"
+                                className="w-full xl:h-[500px] lg:h-[450px] md:h-[350px] sm:h-[250px] object-cover rounded-lg"
+                                initial={{ opacity: 0, x: 100 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -100 }}
+                                transition={{ duration: 0.5 }}
+                            />
+                        </AnimatePresence>
+
+                        <button
+                            onClick={nextSlide}
+                            className="absolute right-[2%] cursor-pointer top-[50%] z-10 bg-black/40 text-white lg:p-2 sm:p-1 rounded-full hover:bg-gray-800"                            >
+                            <ChevronRight />
+                        </button>
                     </motion.div>
 
                     {/* Side Thumbnails */}
@@ -136,9 +178,9 @@ export default function CarDetails() {
                             hidden: { opacity: 0 }
                         }}
                     >
-                        {carImages.slice(1).map((img, index) => (
+                        {images.slice(1).map((img, index) => (
                             <motion.img
-                                key={index}
+                                key={index+1}
                                 src={img}
                                 alt="Car detail"
                                 className="xl:w-25 xl:h-27 lg:h-24 md:h-18 sm:h-[52px] w-[115px] overflow-hidden object-cover rounded-lg cursor-pointer transition-transform transform hover:scale-105"
@@ -146,6 +188,7 @@ export default function CarDetails() {
                                     hidden: { opacity: 0, y: 20 }, 
                                     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
                                 }}
+                                onClick={() => handleImageClick(index + 1)}
                             />
                         ))}
                     </motion.div>
@@ -157,7 +200,7 @@ export default function CarDetails() {
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.2 }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    transition={{ duration: 0.9, ease: "easeOut" }}
                 >
                     <div className="grid sm:grid-cols-5 grid-cols-2 xl:gap-x-8 lg:gap-x-6 sm:gap-x-3 sm:gap-y-5 gap-x-4 gap-y-2">
                         {details.map((item, index) => (
@@ -167,7 +210,7 @@ export default function CarDetails() {
                                 initial={{ opacity: 0, y: 20, scale: 0.8 }}
                                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                                 viewport={{ once: true }}
-                                transition={{ duration: 0.5, delay: index * 0.1 }}
+                                transition={{ duration: 0.5 }}
                                 className="bg-[#466F7F] text-white flex items-center justify-center lg:gap-2 sm:gap-1.5 gap-1 xl:p-5 lg:p-3 sm:py-2 sm:px-1 p-1.5 rounded-md xl:text-lg lg:text-base md:text-sm text-xs"
                             >
                                 {item.icon} <span className="xl:text-sm lg:text-xs text-[10px] line-clamp-1">{item.text}</span>
