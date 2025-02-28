@@ -120,7 +120,7 @@ const Navbar = () => {
             <nav className="w-full px-6 py-3 flex sm:gap-5 gap-2 items-center backdrop-blur-[2px]">
                 {/* Logo */}
                 <h1 className={`transition-colors duration-500 sm:translate-x-0 -translate-x-2`}>
-                    <img src="./logoDark.gif" alt="logo" className="xl:size-32 lg:size-28 md:size-24 size-20" />
+                    <img src="/logoDark.gif" alt="logo" className="xl:size-32 lg:size-28 md:size-24 size-20" />
                 </h1>
 
                 {/* Search Bar */}
