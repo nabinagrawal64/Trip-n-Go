@@ -55,7 +55,8 @@ export default function CarDetails() {
         "https://images.pexels.com/photos/3802510/pexels-photo-3802510.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2", // Main image
         "https://carento-demo.vercel.app/assets/imgs/cars-listing/cars-listing-1/car-1.png", // Small images
         "https://carento-demo.vercel.app/assets/imgs/cars-listing/cars-listing-1/car-2.png",
-        "https://carento-demo.vercel.app/assets/imgs/cars-listing/cars-listing-1/car-3.png"
+        "https://carento-demo.vercel.app/assets/imgs/cars-listing/cars-listing-1/car-3.png",
+        "https://carento-demo.vercel.app/assets/imgs/cars-listing/cars-listing-1/car-4.png"
     ];
 
     return (
@@ -135,7 +136,7 @@ export default function CarDetails() {
                             hidden: { opacity: 0 }
                         }}
                     >
-                        {carImages.map((img, index) => (
+                        {carImages.slice(1).map((img, index) => (
                             <motion.img
                                 key={index}
                                 src={img}
