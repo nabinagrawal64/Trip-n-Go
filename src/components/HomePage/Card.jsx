@@ -13,13 +13,13 @@ export default function CarCard ({car}) {
     const navigate = useNavigate();
 
     return (
-        <div onClick={() => navigate(`/cars/${car.id}`, { state: { car } })} className="xl:w-[320px] lg:w-[300px] md:w-[210px] sm:w-[170px] w-[110px] bg-[#313131] text-white rounded-xl cursor-pointer hover:scale-105 transition-all duration-500 hover:shadow-md hover:shadow-amber-50 overflow-hidden shadow-lg">
+        <div onClick={() => navigate(`/cars/${car.id}`, { state: { car } })} className="xl:w-[320px] lg:w-[300px] md:w-[210px] sm:w-[170px] w-[110px] bg-[#313131] text-white rounded-xl cursor-pointer transition-all duration-500 hover:shadow-md hover:shadow-gray-500 overflow-hidden shadow-lg drop-shadow-2xl">
             {/* Car Image */}
             <div className="relative" >
                 <img
                     src={car?.image}
                     alt={car?.name}
-                    className="w-auto h-auto"
+                    className="w-auto h-auto transition-transform duration-300 ease-in-out transform hover:scale-105"
                 />
 
                 <div className="absolute xl:-bottom-4 md:-bottom-3 -bottom-2 lg:right-2 sm:right-1 right-0.5 bg-black lg:px-2 px-1 lg:text-xs rounded-md flex items-center gap-1">
@@ -64,7 +64,7 @@ export default function CarCard ({car}) {
                 <div className="flex justify-between items-center lg:mt-4 sm:mt-3 mt-2">
                     <p className="lg:text-lg sm:text-xs text-[10px] text-gray-500 text-xs font-semibold">
                         Price{" "}
-                        <span className="hidden lg:inline lg:text-[20px] sm:text-[16px] text-xs text-pink-500">
+                        <span className="hidden lg:inline lg:text-[20px] sm:text-[16px] text-xs text-yellow-300">
                             ₹{car?.price}/km
                         </span>
                         <p className="lg:hidden md:text-[16px] sm:text-[14px] text-[10px] text-yellow-300">
