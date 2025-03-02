@@ -39,9 +39,9 @@ const FilterCheckbox = ({ label, checked, onChange }) => (
             type="checkbox" 
             checked={checked}
             onChange={onChange}
-            className="lg:h-5 lg:w-5 sm:h-3 sm:w-3 w-4 h-4 cursor-pointer border border-white bg-transparent appearance-none rounded-sm checked:bg-white checked:border-white checked:outline-none checked:after:content-['✔'] checked:after:text-black lg:checked:after:text-xl sm:checked:after:text-xs checked:after:text-base checked:after:flex checked:after:justify-center lg:checked:after:-mt-1 sm:checked:after:-mt-0.5 checked:after:-mt-1 checked:after:items-center" 
+            className="lg:h-5 lg:w-5 w-3 h-3 cursor-pointer border border-white bg-transparent appearance-none rounded-sm checked:bg-white checked:border-white checked:outline-none checked:after:content-['✔'] checked:after:text-black lg:checked:after:text-xl checked:after:text-xs checked:after:flex checked:after:justify-center lg:checked:after:-mt-1 checked:after:-mt-0.5  checked:after:items-center" 
         />
-        <span className="lg:text-sm sm:text-xs">{label}</span>    
+        <span className="lg:text-sm sm:text-xs text-[10px]">{label}</span>    
     </label>
 );
 
@@ -273,7 +273,7 @@ const SearchResult = () => {
                     </button>
 
                     {/* Sidebar for mobile view */}
-                    <div className={`fixed top-0 left-0 z-10 w-52 h-full bg-black p-5 py-10 transition-transform transform ${isOpen ? "translate-x-0" : "-translate-x-full"} duration-300 ease-in-out shadow-lg overflow-y-auto max-h-full scroll-smooth`}
+                    <div className={`fixed top-0 left-0 z-10 w-48 h-full bg-black p-5 py-10 transition-transform transform ${isOpen ? "translate-x-0" : "-translate-x-full"} duration-300 ease-in-out shadow-lg overflow-y-auto max-h-full scroll-smooth`}
                     >
                         {/* Close Button */}
                         <button 
