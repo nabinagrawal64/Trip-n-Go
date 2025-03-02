@@ -41,7 +41,7 @@ const FilterCheckbox = ({ label, checked, onChange }) => (
             onChange={onChange}
             className="lg:h-5 lg:w-5 w-3 h-3 cursor-pointer border border-white bg-transparent appearance-none rounded-sm checked:bg-white checked:border-white checked:outline-none checked:after:content-['✔'] checked:after:text-black lg:checked:after:text-xl checked:after:text-xs checked:after:flex checked:after:justify-center lg:checked:after:-mt-1 checked:after:-mt-0.5  checked:after:items-center" 
         />
-        <span className="lg:text-sm sm:text-xs text-[10px]">{label}</span>    
+        <span className="lg:text-sm sm:text-xs text-[11px]">{label}</span>    
     </label>
 );
 
