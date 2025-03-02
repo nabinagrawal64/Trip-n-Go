@@ -13,7 +13,7 @@ export default function CarCard ({car}) {
     const navigate = useNavigate();
 
     return (
-        <div onClick={() => navigate(`/cars/${car.id}`, { state: { car } })} className="xl:w-[320px] lg:w-[300px] md:w-[210px] sm:w-[170px] w-[110px] bg-[#313131] text-white rounded-xl cursor-pointer transition-all duration-500 hover:shadow-md hover:shadow-gray-500 overflow-hidden shadow-lg drop-shadow-2xl">
+        <div onClick={() => navigate(`/carDetails/${car.id}`, { state: { car } })} className="xl:w-[320px] lg:w-[300px] md:w-[210px] sm:w-[170px] w-[110px] bg-[#313131] text-white rounded-xl cursor-pointer transition-all duration-500 hover:shadow-md hover:shadow-gray-500 overflow-hidden shadow-lg drop-shadow-2xl">
             {/* Car Image */}
             <div className="relative" >
                 <img

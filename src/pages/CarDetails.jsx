@@ -19,7 +19,7 @@ export default function CarDetails() {
     console.log(car)
 
     useEffect(() => {
-        // window.scrollTo(0, 0); // Page load hone ke turant baad top pe scroll karega
+        window.scrollTo(0, 0); // Page load hone ke turant baad top pe scroll karega
     }, []);
 
     const loadMore = () => {
