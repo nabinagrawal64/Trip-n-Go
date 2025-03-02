@@ -12,6 +12,7 @@ import ServiceCard from "../components/HomePage/Service";
 import CountUp from "../components/animation/Counter";
 import TestimonialSlider from "../components/HomePage/Testimonials";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 
 const logoImgs = [
     // auto
@@ -149,6 +150,7 @@ const services = [
 
 export default function HomePage() {
     const { darkMode } = useDarkMode();
+    const navigate = useNavigate();
 
     const getFormattedDateTime = () => {
         const now = new Date();
@@ -292,10 +294,12 @@ export default function HomePage() {
                     </div>
 
                     {/* Search Button */}
-                    <button className={`flex items-center ${darkMode ? "bg-[#00E1FF]" : "bg-[#0f75b9]"} text-black w-full sm:w-auto lg:mt-5 mt-4 font-semibold xl:px-6 xl:py-4 lg:px-4 lg:py-3 sm:py-2     sm:px-2 px-2 py-2 rounded-lg ml-auto hover:bg-[#00BFD8] transition-all`}>
+                    <button 
+                        className={`flex items-center ${darkMode ? "bg-[#00E1FF]" : "bg-[#0f75b9]"} text-black w-full sm:w-auto lg:mt-5 mt-4 font-semibold xl:px-6 xl:py-4 lg:px-4 lg:py-3 sm:py-2     sm:px-2 px-2 py-2 rounded-lg ml-auto cursor-pointer hover:bg-[#00BFD8] transition-all`}
+                        onClick={() => navigate('/search')}
+                    >
                         <Search className="sm:h-auto sm:w-auto h-5 w-5 mr-1 sm:mr-2" />
                         <span className="text-xs lg:text-[14px]">Find a Vehicle</span>
-
                     </button>
                 </div>
                 </Fade>
