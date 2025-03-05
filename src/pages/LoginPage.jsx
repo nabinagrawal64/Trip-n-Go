@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { Eye, EyeOff, X, } from "lucide-react";
+import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
 //eslint-disable-next-line
 export default function LoginForm( {switchToSignup, handleCloseLogin } ) {
     const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate();
 
     return (
         <div className="flex items-center justify-center bg-[#1E1E1E]/80 backdrop-blur-lg">
@@ -21,7 +24,7 @@ export default function LoginForm( {switchToSignup, handleCloseLogin } ) {
                     <X size={30} />
                 </button>
                 
-                <form action="">
+                <form action="submit">
                     {/* email */}
                     <div>
                         <label className="block text-white sm:text-sm text-xs mb-1">Email or Username :</label>
@@ -62,6 +65,10 @@ export default function LoginForm( {switchToSignup, handleCloseLogin } ) {
 
                 <button 
                     className="w-full cursor-pointer bg-[#00E1FF] hover:bg-[#00e1ffa8] text-black sm:p-2 p-1 rounded-lg font-bold"
+                    onClick={() => {
+                        navigate('/dashboard/profile')
+                        toast.success('Logged in Successfully !')
+                    }}
                 >
                     Log In
                 </button>

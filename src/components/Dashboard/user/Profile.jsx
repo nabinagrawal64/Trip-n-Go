@@ -95,7 +95,7 @@ const UserProfile = () => {
 
     return (
         <div className="text-white min-h-screen p-6">
-            <h2 className="text-2xl font-bold">My Profile</h2>
+            <h2 className="lg:text-2xl sm:text-xl text-lg mx-auto font-bold">My Profile</h2>
 
             {/* Profile Section */}
             <div className="bg-[#1c1f26] border mx-auto max-w-11/12 border-gray-400 p-6 rounded-xl mt-4 flex justify-between items-center">
