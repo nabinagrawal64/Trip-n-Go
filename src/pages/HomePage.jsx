@@ -1,9 +1,9 @@
 import "../styles.css"; 
 import { Calendar, CircleCheck, Search } from "lucide-react";
 // import Navbar2 from "../components/Navbar2";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/common/Navbar";
 import LogoWall from '../components/HomePage/LogoWall';
-import { useDarkMode } from '../components/DarkModeProvider'
+import { useDarkMode } from '../components/common/DarkModeProvider'
 import Card from "../components/HomePage/Card";
 import FadeContent from '../components/animation/FadeContent'
 import { Fade, Slide } from "react-awesome-reveal";

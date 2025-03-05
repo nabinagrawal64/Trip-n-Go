@@ -3,7 +3,7 @@ import { Bell, MoonStar, Sun, Search, Settings, SlidersHorizontal, User, Check, 
 import { FaCheckSquare } from "react-icons/fa";
 import { FaRegStar  } from "react-icons/fa";
 import { useDarkMode } from './DarkModeProvider.jsx'
-import AuthPage from "../pages/AuthPage.jsx";
+import AuthPage from "../../pages/AuthPage.jsx";
 
 const Navbar = () => {
     const { darkMode, toggleDarkMode } = useDarkMode();

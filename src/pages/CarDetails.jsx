@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import {FaMapMarkerAlt, FaStar, FaTaxi, FaSnowflake, FaWheelchair, FaGasPump, FaBed, FaUsers, FaPhone, FaEnvelope,} from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence  } from "framer-motion";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/common/Navbar";
 import { ChevronLeft, ChevronRight, SendHorizontal } from "lucide-react";
 
 export default function CarDetails() {

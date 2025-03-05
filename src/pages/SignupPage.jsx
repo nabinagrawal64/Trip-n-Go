@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Eye, EyeOff, X, } from "lucide-react";
-import PasswordStrengthMeter from "../components/PasswordMeter";
+import PasswordStrengthMeter from "../components/common/PasswordMeter";
 
 //eslint-disable-next-line
 export default function SignupForm( {switchToLogin, handleCloseLogin} ) {

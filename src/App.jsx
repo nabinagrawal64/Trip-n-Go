@@ -5,7 +5,14 @@ import { ErrorPage } from "./pages/ErrorPage";
 import DashBoard from "./pages/Dashboard";
 import CarDetails from "./pages/CarDetails";
 import SearchResult from "./pages/SearchResult";
-// import Aaa from "./pages/Aaa";
+import Profile from "./components/Dashboard/user/Profile";
+import Favorites from "./components/Dashboard/user/Favorites";
+import Bookings from "./components/Dashboard/user/BookedVehicles";
+import Posts from "./components/Dashboard/user/Posts";
+import History from "./components/Dashboard/user/History";
+import Reviews from "./components/Dashboard/user/Reviews";
+import Vehicles from "./components/Dashboard/user/MyVehicles";
+import BookedVehicles from "./components/Dashboard/user/BookedVehicles";
 
 const router = createBrowserRouter([
     {
@@ -14,10 +21,24 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
         children: [
             { path: "/", element: <HomePage /> },
-            { path: "/dashboard", element: <DashBoard />},
+            // dashboard
+            { 
+                path: "/dashboard", 
+                element: <DashBoard />, 
+                children: [
+                    {path: "profile", element: <Profile />},
+                    { path: "favorites", element: <Favorites /> },
+                    { path: "bookings", element: <Bookings /> },
+                    { path: "posts", element: <Posts /> },
+                    { path: "history", element: <History /> },
+                    { path: "reviews", element: <Reviews /> },
+                    { path: "vehicles", element: <Vehicles /> },
+                    { path: "booked-vehicles", element: <BookedVehicles />},
+                ]
+            },
+
             { path: "/search", element: <SearchResult /> },
             { path: "/carDetails/:id", element: <CarDetails /> },
-            // { path: "/cars/:id", element: <Aaa /> },
         ],
     }
 ])
