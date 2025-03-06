@@ -94,14 +94,14 @@ const UserProfile = () => {
     };
 
     return (
-        <div className="text-white min-h-screen p-6">
-            <h2 className="lg:text-2xl sm:text-xl text-lg mx-auto font-bold">My Profile</h2>
+        <div className="text-white sm:p-6 p-4">
+            <h2 className="lg:text-2xl text-xl mx-auto font-bold sm:ml-0 ml-10">My Profile</h2>
 
             {/* Profile Section */}
-            <div className="bg-[#1c1f26] border mx-auto max-w-11/12 border-gray-400 p-6 rounded-xl mt-4 flex justify-between items-center">
-                <div className="flex items-center gap-4">
+            <div className="bg-[#1c1f26] border mx-auto border-gray-400 sm:p-6 p-3 rounded-xl mt-4 flex justify-between items-center">
+                <div className="flex items-center sm:gap-4 gap-2">
                     {/* Profile photo */}
-                    <div className="w-16 h-16 rounded-full bg-gray-500 relative overflow-hidden">
+                    <div className="lg:size-16 sm:size-12 size-10 rounded-full bg-gray-500 relative overflow-hidden">
                         <img
                             src={tempData.profilePicture || "https://ui-avatars.com/api/?name=Satish+Meher&background=0000&color=fff&rounded=true"}
                             alt="Profile"
@@ -142,7 +142,7 @@ const UserProfile = () => {
                         value={tempData.name}
                         onChange={handleInputChange}
                         readOnly={!isEditingProfile}
-                        className="bg-transparent py-1 rounded-md outline-none"
+                        className="bg-transparent w-fit py-1 lg:text-lg sm:text-sm text-xs rounded-md outline-none"
                     />
                 </div>
 
@@ -151,13 +151,13 @@ const UserProfile = () => {
                     <div className="flex gap-2">
                         <button
                             onClick={handleProfileDiscard}
-                            className="px-3 py-1.5 cursor-pointer rounded-md border border-gray-400 hover:border-[#00E1FF] transition-all duration-200 "
+                            className="lg:px-3 sm:px-2 px-1 lg:py-1.5 sm:py-1 p-0.5 lg:text-base sm:text-sm text-xs cursor-pointer rounded-md border border-gray-400 hover:border-[#00E1FF] transition-all duration-200 "
                         >
                             Discard
                         </button>
                         <button
                             onClick={handleProfileSave}
-                            className="px-3 py-1.5 cursor-pointer text-black rounded-md bg-[#00E1FF]"
+                            className="lg:px-3 sm:px-2 px-1 lg:py-1.5 sm:py-1 p-0.5 lg:text-base sm:text-sm text-xs cursor-pointer text-black rounded-md bg-[#00E1FF]"
                         >
                             Save
                         </button>
@@ -165,30 +165,31 @@ const UserProfile = () => {
                 ) : (
                     <button
                         onClick={handleProfileEdit}
-                        className="px-3 py-1.5 cursor-pointer flex items-center gap-1 text-black rounded-md bg-[#00E1FF]"
+                        className="lg:px-3 sm:px-2 px-1 lg:py-1.5 sm:py-1 p-0.5 lg:text-base sm:text-sm text-[10px] cursor-pointer flex items-center gap-1 text-black rounded-md bg-[#00E1FF]"
                     >
-                        <FiEdit className="size-4 flex " /> <span>Edit</span>
+                        <FiEdit className="sm:size-4 size-3 flex " /> <span>Edit</span>
                     </button>
                 )}
             </div>
 
             {/* Personal Details Section */}
-            <div className="bg-[#1c1f26] border mx-auto max-w-11/12 border-gray-400 p-6 rounded-xl mt-4">   
+            <div className="bg-[#1c1f26] border mx-auto border-gray-400 sm:p-6 p-3 rounded-xl mt-4">   
+                {/* top section */}
                 <div className="flex justify-between items-center">
-                    <h3 className="font-bold">Personal Details</h3>
+                    <h3 className="font-bold lg:text-xl sm:text-lg text-sm ">Personal Details</h3>
 
                     {/* Edit/Save/Discard Buttons */}
                     {isEditingDetails ? (
                         <div className="flex gap-2 ">
                             <button
                                 onClick={handleDetailsDiscard}
-                                className="px-3 py-1.5 cursor-pointer rounded-md border border-gray-400 hover:border-[#00E1FF] transition-all duration-200 "
+                                className="lg:px-3 sm:px-2 px-1 lg:py-1.5 sm:py-1 p-0.5 lg:text-base sm:text-sm text-xs cursor-pointer rounded-md border border-gray-400 hover:border-[#00E1FF] transition-all duration-200 "
                             >
                                 Discard
                             </button>
                             <button
                                 onClick={handleDetailsSave}
-                                className="px-3 py-1.5 cursor-pointer text-black rounded-md bg-[#00E1FF]"
+                                className="lg:px-3 sm:px-2 px-1 lg:py-1.5 sm:py-1 p-0.5 lg:text-base sm:text-sm text-xs cursor-pointer text-black rounded-md bg-[#00E1FF]"
                             >
                                 Save
                             </button>
@@ -196,18 +197,18 @@ const UserProfile = () => {
                     ) : (
                         <button
                             onClick={handleDetailsEdit}
-                            className="px-3 py-1.5 cursor-pointer flex items-center gap-1 text-black rounded-md bg-[#00E1FF]"
+                            className="lg:px-3 sm:px-2 px-1 lg:py-1.5 sm:py-1 p-0.5 lg:text-base sm:text-sm text-xs cursor-pointer flex items-center gap-1 text-black rounded-md bg-[#00E1FF]"
                         >
-                            <FiEdit className="size-4 flex " /> <span>Edit</span>
+                            <FiEdit className="sm:size-4 size-3 flex " /> <span>Edit</span>
                         </button>
                     )}
                 </div>
                 
                 {/* Details */}
-                <div className="grid grid-cols-2 gap-4 mt-2">
+                <div className="grid grid-cols-2 gap-y-4 sm:gap-x-24 gap-x-2 mt-2">
                     {/* Email */}
                     <div>
-                        <p className="text-gray-400">Email</p>
+                        <p className="text-gray-400 lg:text-base sm:text-sm text-xs">Email</p>
                         <input
                             ref={(el) => (inputRefs.current["email"] = el)}
                             type="email"
@@ -215,19 +216,19 @@ const UserProfile = () => {
                             value={tempData.email}
                             onChange={handleInputChange}
                             readOnly={!isEditingDetails}
-                            className="bg-transparent py-1 rounded-md outline-none w-full"
+                            className="bg-transparent sm:py-1 lg:text-base sm:text-sm text-[10px] rounded-md outline-none "
                         />
                     </div>
 
                     {/* Preferred Language - Dropdown */}
                     <div>
-                        <p className="text-gray-400">Language</p>
+                        <p className="text-gray-400 lg:text-base sm:text-sm text-xs">Language</p>
                         {isEditingDetails ? (
                             <select
                                 name="language"
                                 value={tempData.language}
                                 onChange={handleInputChange}
-                                className="bg-transparent border border-gray-500 py-1 rounded-md w-auto outline-none"
+                                className="bg-transparent border lg:text-base sm:text-sm text-[10px] border-gray-500 my-1 rounded-md w-auto outline-none"
                             >
                                 <option value="English" className="bg-[#1c1f26]">
                                     English
@@ -240,13 +241,13 @@ const UserProfile = () => {
                                 </option>
                             </select>
                         ) : (
-                            <p>{userData.language}</p>
+                            <p className="lg:text-base sm:text-sm text-[10px] mt-2">{userData.language}</p>
                         )}
                     </div>
 
                     {/* Phone */}
                     <div>
-                        <p className="text-gray-400">Phone</p>
+                        <p className="text-gray-400 lg:text-base sm:text-sm text-xs">Phone</p>
                         <input
                             type="number"
                             name="phone"
@@ -258,7 +259,7 @@ const UserProfile = () => {
                                 }
                             }}
                             readOnly={!isEditingDetails}
-                            className="bg-transparent py-1 rounded-md outline-none w-full"
+                            className="bg-transparent sm:py-1 lg:text-base sm:text-sm text-[10px] rounded-md outline-none w-full"
                             maxLength={10}
                         />
                     </div>
@@ -267,20 +268,20 @@ const UserProfile = () => {
 
                     {/* Address */}
                     <div>
-                        <p className="text-gray-400">Address</p>
+                        <p className="text-gray-400 lg:text-base sm:text-sm text-xs">Address</p>
                         <input
                             type="text"
                             name="address"
                             value={tempData.address}
                             onChange={handleInputChange}
                             readOnly={!isEditingDetails}
-                            className="bg-transparent py-1 rounded-md outline-none w-full"
+                            className="bg-transparent sm:py-1 lg:text-base sm:text-sm text-[10px] rounded-md outline-none "
                         />
                     </div>
 
                     {/* PIN */}
                     <div>
-                        <p className="text-gray-400">PIN</p>
+                        <p className="text-gray-400 lg:text-base sm:text-sm text-xs">PIN</p>
                         <input
                             type="number"
                             name="pin"
@@ -292,27 +293,27 @@ const UserProfile = () => {
                                 }
                             }}
                             readOnly={!isEditingDetails}
-                            className="bg-transparent py-1 rounded-md outline-none w-full"
+                            className="bg-transparent sm:py-1 lg:text-base sm:text-sm text-[10px] rounded-md outline-none w-full"
                             maxLength={6}
                         />
                     </div>
 
                     {/* City */}
                     <div>
-                        <p className="text-gray-400">City</p>
+                        <p className="text-gray-400 lg:text-base sm:text-sm text-xs">City</p>
                         <input
                             type="text"
                             name="city"
                             value={tempData.city}
                             onChange={handleInputChange}
                             readOnly={!isEditingDetails}
-                            className="bg-transparent py-1 rounded-md outline-none w-full"
+                            className="bg-transparent sm:py-1 lg:text-base sm:text-sm text-[10px] rounded-md outline-none w-full"
                         />
                     </div>
 
                     {/* State */}
                     <div>
-                        <p className="text-gray-400">State</p>
+                        <p className="text-gray-400 lg:text-base sm:text-sm text-xs">State</p>
                         {isEditingDetails ? (
                             <select
                                 name="state"
@@ -321,7 +322,7 @@ const UserProfile = () => {
                                     handleInputChange(e);
                                     e.target.blur();
                                 }}
-                                className="bg-transparent border border-gray-500 py-1 rounded-md w-auto outline-none"
+                                className="bg-transparent border lg:text-base sm:text-sm text-[10px] border-gray-500 my-1 w-fit rounded-md outline-none"
                                 size={1}
                                 onClick={(e) => e.target.size = 5} 
                                 onBlur={(e) => e.target.size = 1} 
@@ -359,34 +360,35 @@ const UserProfile = () => {
                                     <option
                                         key={state}
                                         value={state}
-                                        className="bg-[#1c1f26] "
+                                        className="bg-[#1c1f26] lg:text-base sm:text-sm text-[10px]"
                                     >
                                         {state}
                                     </option>
                                 ))}
                             </select>
                         ) : (
-                            <p>{userData.state}</p>
+                            <p className="lg:text-base sm:text-sm text-[10px] my-1">{userData.state}</p>
                         )}
                     </div>
                 </div>
             </div>
-
-            <div className="bg-[#2a0410] border mx-auto max-w-11/12 border-[#6b1b2d] mt-4 p-4 sm:p-6 rounded-xl flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                        
+            {/* Delete Account */}
+            <div className="bg-[#2a0410] border mx-auto border-[#6b1b2d] mt-4 sm:p-6 p-3 rounded-xl flex items-center sm:gap-4 gap-2.5">
                 {/* Trash Icon */}
-                <div className="w-12 h-12 flex items-center justify-center bg-[#6b1b2d] rounded-full shrink-0">
-                    <FiTrash2 className="text-[#ff6473] text-xl" />
+                <div className="lg:size-12 sm:size-8 size-6 flex items-center justify-center bg-[#6b1b2d] rounded-full shrink-0">
+                    <FiTrash2 className="text-[#ff6473] lg:text-xl sm:text-lg text-sm" />
                 </div>
 
                 {/* Content */}
                 <div className="flex-1">
-                    <h2 className="text-lg font-semibold text-white">Delete Account</h2>
-                    <p className="text-gray-300 text-sm">
+                    <h2 className="lg:text-lg sm:text-sm text-xs font-semibold text-white">Delete Account</h2>
+                    <p className="text-gray-300 lg:text-sm sm:text-xs text-[10px]">
                         Would you like to delete your account? <br className="hidden sm:block" />
                         This account includes access to rented vehicles. Deleting your account will permanently remove all associated bookings and rental history.
                     </p>
                     <p 
-                        className="text-[#ff6473] italic cursor-pointer mt-2 hover:underline"
+                        className="text-[#ff6473] lg:text-base sm:text-[13px] text-[11px] italic cursor-pointer lg:mt-2 mt-1 hover:underline"
                         onClick={() => setIsModalOpen(true)}
                     >
                         I want to delete my account.
