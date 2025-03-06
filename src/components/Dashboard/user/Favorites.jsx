@@ -202,14 +202,14 @@ const Favorites = () => {
                                 </div>
 
                                 {/* Price and Button */}
-                                <div className="flex justify-between sm:gap-5 gap-2 items-center ">
+                                <div className="flex justify-between sm:gap-5 gap-1 items-center ">
                                     <p className="lg:text-lg sm:text-xs text-[8px] text-gray-500 font-semibold">
                                         <span className="">Price </span>
-                                        <span className="lg:text-[20px] ml-1 md:text-sm sm:text-xs text-[10px] text-yellow-300">
+                                        <span className="lg:text-[20px] ml-0.5 md:text-sm sm:text-xs text-[10px] text-yellow-300">
                                             ₹{car?.price}/km
                                         </span>
                                     </p>
-                                    <button className="bg-[#00E1FF] cursor-pointer lg:text-sm sm:text-xs text-[8px] hover:bg-gray-700 text-black lg:px-4 sm:px-2.5 px-1.5 lg:py-2 py-0.5 rounded-lg font-semibold">
+                                    <button className="bg-[#00E1FF] cursor-pointer lg:text-sm sm:text-xs text-[8px] hover:bg-gray-700 text-black lg:px-4 sm:px-2.5 px-1.5 lg:py-2 py-0.5 rounded-md font-semibold">
                                         Book Now
                                     </button>
                                 </div>

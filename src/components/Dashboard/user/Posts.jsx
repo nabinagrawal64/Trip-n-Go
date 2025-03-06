@@ -82,7 +82,7 @@ const Posts = () => {
 
     return (
         <div className="text-white min-h-screen sm:p-6 p-4">
-            <h2 className="lg:text-2xl text-xl mb-5 mx-auto font-bold sm:ml-0 ml-10">Posts</h2>
+            <h2 className="lg:text-2xl text-xl mb-5 mx-auto font-bold">Posts</h2>
             <div className="grid md:grid-cols-3 grid-cols-2 md:gap-5 gap-3">
                 {posts.map((post) => (
                     <div key={post.id} className="relative group">

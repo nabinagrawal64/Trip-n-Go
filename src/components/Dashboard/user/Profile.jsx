@@ -105,7 +105,7 @@ const UserProfile = () => {
                         <img
                             src={tempData.profilePicture || "https://ui-avatars.com/api/?name=Satish+Meher&background=0000&color=fff&rounded=true"}
                             alt="Profile"
-                            className={`w-full h-full object-cover transition-opacity duration-300 ${
+                            className={`w-full h-full    object-cover transition-opacity duration-300 ${
                                 isEditingProfile ? "group-hover:opacity-50" : ""
                             }`}
                         />
@@ -119,10 +119,10 @@ const UserProfile = () => {
                         )}
                         {isEditingProfile && tempData.profilePicture && (
                             <button
-                                className="absolute top-0 right-0 bg-gray-500/50 cursor-pointer text-white p-[17px] rounded-full shadow-md"
+                                className="absolute top-0 right-0 bg-gray-500/50 cursor-pointer text-white sm:p-[17px] p-[12px] rounded-full shadow-md"
                                 onClick={handleImageDelete}
                             >
-                                <FiTrash2 size={30} />
+                                <FiTrash2 className="lg:size-7 size-4" />
                             </button>
                         )}
                         <input
@@ -205,7 +205,7 @@ const UserProfile = () => {
                 </div>
                 
                 {/* Details */}
-                <div className="grid grid-cols-2 gap-y-4 sm:gap-x-24 gap-x-2 mt-2">
+                <div className="grid grid-cols-2 gap-y-4 sm:gap-x-24 gap-x-20 mt-2">
                     {/* Email */}
                     <div>
                         <p className="text-gray-400 lg:text-base sm:text-sm text-xs">Email</p>
