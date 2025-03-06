@@ -98,7 +98,8 @@ const UserProfile = () => {
             <h2 className="lg:text-2xl text-xl mx-auto font-bold sm:ml-0 ml-10">My Profile</h2>
 
             {/* Profile Section */}
-            <div className="bg-[#1c1f26] border mx-auto border-gray-400 sm:p-6 p-3 rounded-xl mt-4 flex justify-between items-center">
+            <div  className="bg-[#1c1f26] border mx-auto border-gray-400 sm:p-6 p-3 rounded-xl mt-4 flex justify-between items-center">
+                {/* name and profile picture */}
                 <div className="flex items-center sm:gap-4 gap-2">
                     {/* Profile photo */}
                     <div className="lg:size-16 sm:size-12 size-10 rounded-full bg-gray-500 relative overflow-hidden">
@@ -148,7 +149,7 @@ const UserProfile = () => {
 
                 {/* Profile Edit/Save/Discard Buttons */}
                 {isEditingProfile ? (
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 -translate-x-10">
                         <button
                             onClick={handleProfileDiscard}
                             className="lg:px-3 sm:px-2 px-1 lg:py-1.5 sm:py-1 p-0.5 lg:text-base sm:text-sm text-xs cursor-pointer rounded-md border border-gray-400 hover:border-[#00E1FF] transition-all duration-200 "
