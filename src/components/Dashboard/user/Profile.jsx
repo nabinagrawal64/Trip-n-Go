@@ -52,10 +52,10 @@ const UserProfile = () => {
         setIsEditingProfile(false);
     };
 
-    const handleProfileDiscard = () => {
-        setIsEditingProfile(false);
-        setTempData(userData);
-    };
+    // const handleProfileDiscard = () => {
+    //     setIsEditingProfile(false);
+    //     setTempData(userData);
+    // };
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -149,26 +149,20 @@ const UserProfile = () => {
 
                 {/* Profile Edit/Save/Discard Buttons */}
                 {isEditingProfile ? (
-                    <div className="flex gap-2 -translate-x-10">
-                        <button
-                            onClick={handleProfileDiscard}
-                            className="lg:px-3 sm:px-2 px-1 lg:py-1.5 sm:py-1 p-0.5 lg:text-base sm:text-sm text-xs cursor-pointer rounded-md border border-gray-400 hover:border-[#00E1FF] transition-all duration-200 "
-                        >
-                            Discard
-                        </button>
-                        <button
+                    <div className="">
+                        <div
                             onClick={handleProfileSave}
-                            className="lg:px-3 sm:px-2 px-1 lg:py-1.5 sm:py-1 p-0.5 lg:text-base sm:text-sm text-xs cursor-pointer text-black rounded-md bg-[#00E1FF]"
+                            className="lg:px-3 sm:px-2 px-1 lg:py-1.5 sm:py-1 p-0.5 lg:text-base sm:text-sm text-[10px] cursor-pointer text-black rounded-md bg-[#00E1FF]"
                         >
                             Save
-                        </button>
+                        </div>
                     </div>
                 ) : (
                     <button
                         onClick={handleProfileEdit}
                         className="lg:px-3 sm:px-2 px-1 lg:py-1.5 sm:py-1 p-0.5 lg:text-base sm:text-sm text-[10px] cursor-pointer flex items-center gap-1 text-black rounded-md bg-[#00E1FF]"
                     >
-                        <FiEdit className="sm:size-4 size-3 flex " /> <span>Edit</span>
+                        <FiEdit className="sm:size-4 size-2.5 flex " /> <span>Edit</span>
                     </button>
                 )}
             </div>
@@ -181,16 +175,16 @@ const UserProfile = () => {
 
                     {/* Edit/Save/Discard Buttons */}
                     {isEditingDetails ? (
-                        <div className="flex gap-2 -translate-x-10">
+                        <div className="flex gap-2 ">
                             <button
                                 onClick={handleDetailsDiscard}
-                                className="lg:px-3 sm:px-2 px-1 lg:py-1.5 sm:py-1 p-0.5 lg:text-base sm:text-sm text-xs cursor-pointer rounded-md border border-gray-400 hover:border-[#00E1FF] transition-all duration-200 "
+                                className="lg:px-3 sm:px-2 px-1 lg:py-1.5 sm:py-1 p-0.5 lg:text-base sm:text-sm text-[10px] cursor-pointer rounded-md border border-gray-400 hover:border-[#00E1FF] transition-all duration-200 "
                             >
                                 Discard
                             </button>
                             <button
                                 onClick={handleDetailsSave}
-                                className="lg:px-3 sm:px-2 px-1 lg:py-1.5 sm:py-1 p-0.5 lg:text-base sm:text-sm text-xs cursor-pointer text-black rounded-md bg-[#00E1FF]"
+                                className="lg:px-3 sm:px-2 px-1 lg:py-1.5 sm:py-1 p-0.5 lg:text-base sm:text-sm text-[10px] cursor-pointer text-black rounded-md bg-[#00E1FF]"
                             >
                                 Save
                             </button>
@@ -198,9 +192,9 @@ const UserProfile = () => {
                     ) : (
                         <button
                             onClick={handleDetailsEdit}
-                            className="lg:px-3 sm:px-2 px-1 lg:py-1.5 sm:py-1 p-0.5 lg:text-base sm:text-sm text-xs cursor-pointer flex items-center gap-1 text-black rounded-md bg-[#00E1FF]"
+                            className="lg:px-3 sm:px-2 px-1 lg:py-1.5 sm:py-1 p-0.5 lg:text-base sm:text-sm text-[10px] cursor-pointer flex items-center gap-1 text-black rounded-md bg-[#00E1FF]"
                         >
-                            <FiEdit className="sm:size-4 size-3 flex " /> <span>Edit</span>
+                            <FiEdit className="sm:size-4 size-2.5 flex " /> <span>Edit</span>
                         </button>
                     )}
                 </div>
@@ -314,7 +308,7 @@ const UserProfile = () => {
 
                     {/* State */}
                     <div>
-                        <p className="text-gray-400 lg:text-base sm:text-sm text-xs">State</p>
+                        <p className="text-gray-400 w-fit lg:text-base sm:text-sm text-xs">State</p>
                         {isEditingDetails ? (
                             <select
                                 name="state"
@@ -323,7 +317,7 @@ const UserProfile = () => {
                                     handleInputChange(e);
                                     e.target.blur();
                                 }}
-                                className="bg-transparent border lg:text-base sm:text-sm text-[10px] border-gray-500 my-1 w-fit rounded-md outline-none"
+                                className="bg-transparent border w-fit lg:text-base sm:text-sm text-[10px] border-gray-500 my-1 w-fit rounded-md outline-none"
                                 size={1}
                                 onClick={(e) => e.target.size = 5} 
                                 onBlur={(e) => e.target.size = 1} 
@@ -361,14 +355,14 @@ const UserProfile = () => {
                                     <option
                                         key={state}
                                         value={state}
-                                        className="bg-[#1c1f26] lg:text-base sm:text-sm text-[10px]"
+                                        className="bg-[#1c1f26] w-fit lg:text-base sm:text-sm text-[10px]"
                                     >
                                         {state}
                                     </option>
                                 ))}
                             </select>
                         ) : (
-                            <p className="lg:text-base sm:text-sm text-[10px] my-1">{userData.state}</p>
+                            <p className="lg:text-base w-fit sm:text-sm text-[10px] my-1">{userData.state}</p>
                         )}
                     </div>
                 </div>
