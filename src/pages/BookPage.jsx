@@ -100,6 +100,21 @@ const CabBooking = () => {
         }
     };
 
+    const parseDuration = (durationText) => {
+        let hours = 0, minutes = 0;
+        
+        // Extract hours
+        const hourMatch = durationText.match(/(\d+)\s*hour/);
+        if (hourMatch) hours = parseInt(hourMatch[1]);
+    
+        // Extract minutes
+        const minuteMatch = durationText.match(/(\d+)\s*min/);
+        if (minuteMatch) minutes = parseInt(minuteMatch[1]);
+    
+        // Convert everything to minutes
+        return hours * 60 + minutes;
+    };
+
     const getRoute = async () => {
         if (!origin) return;
         console.log("origin: " + origin);
@@ -117,9 +132,17 @@ const CabBooking = () => {
             if (data.routes) {
                 const route = data.routes[0];
                 if(route.legs[1]){
-                    setDistance(route.legs[0].distance.text + route.legs[1].distance.text);
-                    setDuration(route.legs[0].duration.text + route.legs[1].duration.text);
-                    setPrice(parseInt((route.legs[0].distance.value + route.legs[1].distance.value) / 100) * 10); // ₹10 per km
+                    const totalDistance = (parseFloat(route.legs[0].distance.text.replace(" km", "")) + parseFloat(route.legs[1].distance.text.replace(" km", ""))).toFixed(2);;
+                    setDistance(totalDistance + " km");
+
+                    const totalMinutes = parseDuration(route.legs[0].duration.text) + parseDuration(route.legs[1].duration.text);
+                    const hours = Math.floor(totalMinutes / 60);
+                    const minutes = totalMinutes % 60;
+                    const formattedDuration = hours > 0 ? `${hours} hr ${minutes} min` : `${minutes} min`;
+                    setDuration(formattedDuration);
+
+                    const price = parseInt(totalDistance * 10); // Convert meters to km and multiply by rate
+                    setPrice(price);
 
                     console.log("route: ", route);
 
@@ -360,13 +383,13 @@ const CabBooking = () => {
                         </div>
                         <div>
                             <p className="text-[#787B7B]">
-                                Estimated duration
+                                Estimated duration:
                             </p>
                             <p><strong>{duration}</strong></p>
                         </div>
                         <div>
                             <p className="text-[#787B7B]">
-                                Estimated Price
+                                Estimated Price:
                             </p>
                             <p><strong>{price}</strong></p>
                         </div>
