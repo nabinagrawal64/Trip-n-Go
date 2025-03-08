@@ -1,25 +1,20 @@
 /* eslint-disable react/prop-types */
-import {
-    FaMapMarkerAlt,
-    FaUserFriends,
-    FaTaxi,
-    FaCheckCircle,
-} from "react-icons/fa";
+import { FaMapMarkerAlt, FaUserFriends, FaTaxi, FaCheckCircle, } from "react-icons/fa";
 import { useNavigate } from "react-router";
-
 
 export default function CarCard ({car}) {
 
     const navigate = useNavigate();
 
     return (
-        <div onClick={() => navigate(`/carDetails/${car.id}`, { state: { car } })} className="xl:w-[320px] lg:w-[300px] md:w-[210px] sm:w-[170px] w-[110px] bg-[#313131] text-white rounded-xl cursor-pointer transition-all duration-500 hover:shadow-md hover:shadow-gray-500 overflow-hidden shadow-lg drop-shadow-2xl">
+        <div className="xl:w-[320px] lg:w-[300px] md:w-[210px] sm:w-[170px] w-[110px] bg-[#313131] text-white rounded-xl transition-all duration-500 hover:shadow-md hover:shadow-gray-500 overflow-hidden shadow-lg drop-shadow-2xl">
             {/* Car Image */}
             <div className="relative" >
                 <img
                     src={car?.image}
                     alt={car?.name}
-                    className="w-auto h-auto transition-transform duration-300 ease-in-out transform hover:scale-105"
+                    className="w-auto h-auto cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-105"
+                    onClick={() => navigate(`/carDetails/${car.id}`, { state: { car } })} 
                 />
 
                 <div className="absolute xl:-bottom-4 md:-bottom-3 -bottom-2 lg:right-2 sm:right-1 right-0.5 bg-black lg:px-2 px-1 lg:text-xs rounded-md flex items-center gap-1">
@@ -71,7 +66,10 @@ export default function CarCard ({car}) {
                             ₹{car?.price}/km
                         </p>
                     </p>
-                    <button className="bg-[#00E1FF] lg:text-lg sm:text-sm text-[8px] hover:bg-gray-700 text-black lg:px-4 sm:px-2.5 px-1.5 lg:py-2 py-1 rounded-lg font-semibold">
+                    <button 
+                        className="bg-[#00E1FF] cursor-pointer lg:text-lg sm:text-sm text-[8px] hover:bg-gray-700 text-black lg:px-4 sm:px-2.5 px-1.5 lg:py-2 py-1 rounded-lg font-semibold"
+                        onClick={() => navigate(`/booking`)}
+                    >
                         Book Now
                     </button>
                 </div>
@@ -80,6 +78,5 @@ export default function CarCard ({car}) {
     );
 };
 
-// Example Usage
 
 

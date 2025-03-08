@@ -1,7 +1,11 @@
 import { FaCheckCircle, FaMapMarkerAlt, FaStar, FaTaxi, FaUserFriends, } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router";
 
 const ListCard = () => {
+
+    const navigate = useNavigate();
+
     const cars = [
         {
             id: 1,
@@ -170,7 +174,7 @@ const ListCard = () => {
                                         ₹{car?.price}/km
                                     </span>
                                 </p>
-                                <button className="bg-[#00E1FF] cursor-pointer lg:text-sm sm:text-xs text-[8px] hover:bg-gray-700 text-black lg:px-4 sm:px-2.5 px-1.5 lg:py-2 py-1 rounded-lg font-semibold">
+                                <button onClick={() => navigate('/booking')} className="bg-[#00E1FF] cursor-pointer lg:text-sm sm:text-xs text-[8px] hover:bg-gray-700 text-black lg:px-4 sm:px-2.5 px-1.5 lg:py-2 py-1 rounded-lg font-semibold">
                                     Book Now
                                 </button>
                             </div>

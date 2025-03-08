@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { FiEdit, FiTrash2, FiCamera } from "react-icons/fi";
 import ConfirmationModal from "../../common/Modal";
+import { useNavigate } from "react-router";
 
 const UserProfile = () => {
     const [isEditingProfile, setIsEditingProfile] = useState(false);
@@ -8,6 +9,7 @@ const UserProfile = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const fileInputRef = useRef(null);
     const inputRefs = useRef({});
+    const navigate = useNavigate();
 
     const defaultUserData = {
         name: "Satish Kumar Meher",
@@ -95,7 +97,7 @@ const UserProfile = () => {
 
     return (
         <div className="text-white sm:p-6 p-4">
-            <h2 className="lg:text-2xl text-xl mx-auto font-bold text-center">My Profile</h2>
+            <h2 className="xl:text-3xl lg:text-2xl text-xl mx-auto font-bold sm:text-left sm:py-2 text-center">My Profile</h2>
 
             {/* Profile Section */}
             <div  className="bg-[#1c1f26] border mx-auto border-gray-400 sm:p-6 p-3 rounded-xl mt-4 flex justify-between items-center">
@@ -395,7 +397,7 @@ const UserProfile = () => {
                     <ConfirmationModal 
                         isOpen={isModalOpen}
                         onClose={() => setIsModalOpen(false)}
-                        onConfirm={() => alert("Account Deleted!")}
+                        onConfirm={() => { alert("Account Deleted!"); navigate('/')}}
                         title="Delete Account"
                         message="Are you sure you want to delete your account? This action cannot be undone."
                         confirmText="Delete"

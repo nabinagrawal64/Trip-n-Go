@@ -199,7 +199,8 @@ export default function BookingUI() {
                         </div>
                     </div>
                 </div>
-
+                
+                {/* get routenbutton */}
                 <div className="flex justify-start mb-8">
                     <div 
                         className="bg-cyan-400 cursor-pointer text-black px-8 font-semibold py-2 rounded"    
@@ -208,7 +209,8 @@ export default function BookingUI() {
                         Get Route
                     </div>
                 </div>
-
+                
+                {/* map */}
                 <div className="w-full h-96 bg-gray-900 rounded-md overflow-hidden relative">
                     <MapContainer
                         center={[27.7172, 85.324]} // Default location (Kathmandu)
@@ -235,7 +237,8 @@ export default function BookingUI() {
                         )}
                     </MapContainer>
                 </div>
-
+                
+                {/* submit button */}
                 <div className="flex justify-end mt-2">
                     <div 
                         className="bg-cyan-400 cursor-pointer text-black px-8 font-semibold py-2 rounded"

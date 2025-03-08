@@ -3,8 +3,11 @@ import { motion } from "framer-motion";
 // import { Heart } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
 
 const Favorites = () => {
+
+    const navigate = useNavigate();
 
     const cars = [
         {
@@ -125,7 +128,7 @@ const Favorites = () => {
     
     return (
         <div className="text-white min-h-screen sm:p-6 p-4">
-            <h2 className="lg:text-2xl text-xl mx-auto font-bold text-center">Favorites</h2>
+            <h2 className="xl:text-3xl lg:text-2xl text-xl mx-auto font-bold sm:text-left text-center">Favorites</h2>
             <div className="col-span-3 sm:translate-x-5 -translate-x-3">
                 {cars.map((car, index) => (
                     <motion.div
@@ -209,7 +212,7 @@ const Favorites = () => {
                                             ₹{car?.price}/km
                                         </span>
                                     </p>
-                                    <button className="bg-[#00E1FF] cursor-pointer lg:text-sm sm:text-xs text-[8px] hover:bg-gray-700 text-black lg:px-4 sm:px-2.5 px-1.5 lg:py-2 py-0.5 rounded-md font-semibold">
+                                    <button onClick={() => navigate(`/booking`)} className="bg-[#00E1FF] cursor-pointer lg:text-sm sm:text-xs text-[8px] hover:bg-gray-700 text-black lg:px-4 sm:px-2.5 px-1.5 lg:py-2 py-0.5 rounded-md font-semibold">
                                         Book Now
                                     </button>
                                 </div>

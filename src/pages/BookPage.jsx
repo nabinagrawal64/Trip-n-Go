@@ -4,6 +4,8 @@ import {MapContainer,Marker,TileLayer,useMap,} from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-routing-machine";
+import { motion } from "framer-motion";
+import { FaLocationArrow, FaRegDotCircle } from "react-icons/fa";
 
 // const API_KEY_GOOGLE = "AIzaSyDLKAZoyY16HjFXgv3N7lZ_H-tM4CVJ9eo";
 const API_KEY_GOOGLE = "AIzaSyDLKAZoyY16HjFXgv3N7lZ_H-tM4CVJ9eo  ";
@@ -33,6 +35,10 @@ const CabBooking = () => {
 
     let start = [20.472833,85.890161]; 
     let end = [20.281103,85.816885]; 
+
+    useEffect(() => {
+        window.scrollTo(0, 0); // Page load hone ke turant baad top pe scroll karega
+    }, []);
 
     const fetchSuggestions = async (input, setSuggestions) => {
         if (!input) return;
@@ -177,132 +183,225 @@ const CabBooking = () => {
     };  
 
     return (
-        <div className="p-6 bg-gray-900 text-white">
-            <div className="flex gap-4 mb-4">
-                <div className="relative">
-                    <input
-                        type="text"
-                        value={pickup}
-                        onChange={(e) => {
-                            setPickup(e.target.value);
-                            fetchSuggestions(
-                                e.target.value,
-                                setPickupSuggestions
-                            );
-                        }}
-                        placeholder="Enter pick up location"
-                        className="p-2 border rounded w-full"
-                    />
-                    {pickupSuggestions.length > 0 && (
-                        <ul className="absolute bg-white text-black border w-full">
-                            {pickupSuggestions.map((suggestion, index) => (
-                                <li
-                                    key={index}
-                                    className="p-2 hover:bg-gray-200 cursor-pointer"
-                                    onClick={() => {
-                                        setPickup(suggestion);
-                                        setPickupSuggestions([]);
-                                    }}
-                                >
-                                    {suggestion}
-                                </li>
-                            ))}
-                        </ul>
-                    )}
-                </div>
+        <motion.div 
+            className="bg-black text-white min-h-screen flex flex-col items-center p-6"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+        > 
+            <motion.div className="w-[87%]">
+                {/* location + estimated */}
+                <motion.div className="w-full flex-col gap-20">
+                    {/* top items */}
+                    <motion.div 
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5 }} 
+                        className="flex sm:flex-row flex-col sm:gap-3 justify-between mb-10"
+                    >
+                        {/* location */}
+                        <motion.div className="flex sm:flex-row flex-col lg:gap-10 md:gap-5 sm:gap-2 ">
+                            {/* pickup */}
+                            <motion.div
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5 }}
+                                className="xl:w-[300px] sm:mb-0 mb-2 lg:w-[200px] md:w-[150px] sm:w-[150px] w-full"
+                            >
+                                <label className="block sm:mb-3 mb-2 ml-1 font-semibold xl:text-base lg:text-sm  text-xs">
+                                    Pick up location
+                                </label>
+                                <div className="relative">
+                                    <input
+                                        type="text"
+                                        value={pickup}
+                                        onChange={(e) => {
+                                            setPickup(e.target.value);
+                                            fetchSuggestions(
+                                                e.target.value,
+                                                setPickupSuggestions
+                                            );
+                                        }}
+                                        placeholder="Pick up location"
+                                        className="w-full xl:text-base lg:text-sm sm:text-xs text-[10px] lg:p-3 p-2 border border-gray-400 rounded-md outline-none"
+                                    />
+                                    {pickupSuggestions.length > 0 && (
+                                        <ul className="absolute z-[1000] bg-white text-black border w-full shadow-md max-h-100 overflow-y-auto">
+                                            {pickupSuggestions.map((suggestion, index) => (
+                                                <li
+                                                    key={index}
+                                                    className="p-2 hover:bg-gray-200 cursor-pointer"
+                                                    onClick={() => {    
+                                                        setPickup(suggestion);
+                                                        setPickupSuggestions([]);
+                                                    }}
+                                                >
+                                                    {suggestion}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    )}
+                                    <FaLocationArrow className="absolute xl:size-4 lg:size-3 sm:size-2.5 size-3 lg:right-3 lg:top-4 sm:right-2 sm:top-3 top-2.5 right-2 text-gray-400" />
+                                </div>
+                            </motion.div>
 
-                <div className="relative">
-                    <input
-                        type="text"
-                        value={dropoff}
-                        onChange={(e) => {
-                            setDropoff(e.target.value);
-                            fetchSuggestions2(
-                                e.target.value,
-                                setDropoffSuggestions
-                            );
-                        }}
-                        placeholder="Enter dropoff location"
-                        className="p-2 border rounded w-full"
-                    />
-                    {dropoffSuggestions.length > 0 && (
-                        <ul className="absolute bg-white text-black border w-full">
-                            {dropoffSuggestions.map((suggestion, index) => (
-                                <li
-                                    key={index}
-                                    className="p-2 hover:bg-gray-200 cursor-pointer"
-                                    onClick={() => {
-                                        setDropoff(suggestion);
-                                        setDropoffSuggestions([]);
-                                    }}
-                                >
-                                    {suggestion}
-                                </li>
-                            ))}
-                        </ul>
-                    )}
-                </div>
+                            {/* dropoff */}
+                            <motion.div 
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5 }}
+                                className="xl:w-[300px] sm:mb-0 mb-2 lg:w-[200px] md:w-[150px] sm:w-[150px] w-fulll"
+                            >
+                                <label className="block sm:mb-3 mb-2 ml-1 font-semibold xl:text-base lg:text-sm text-xs">
+                                    Dropoff location
+                                </label>
+                                <div className="relative">
+                                    <input
+                                        type="text"
+                                        value={dropoff}
+                                        onChange={(e) => {
+                                            setDropoff(e.target.value);
+                                            fetchSuggestions2(
+                                                e.target.value,
+                                                setDropoffSuggestions
+                                            );
+                                        }}
+                                        placeholder="Dropoff location"
+                                        className="w-full xl:text-base lg:text-sm sm:text-xs text-[10px] lg:p-3 p-2 border border-gray-400 rounded-md outline-none"
+                                    />
+                                    {dropoffSuggestions.length > 0 && (
+                                        <ul className="absolute z-[1000] bg-white text-black border w-full shadow-md max-h-100 overflow-y-auto">
+                                            {dropoffSuggestions.map((suggestion, index) => (
+                                                <li
+                                                    key={index}
+                                                    className="p-2 hover:bg-gray-200 cursor-pointer"
+                                                    onClick={() => {
+                                                        setDropoff(suggestion);
+                                                        setDropoffSuggestions([]);
+                                                    }}
+                                                >
+                                                    {suggestion}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    )}
+                                    <FaRegDotCircle className="absolute xl:size-4 lg:size-3 sm:size-2.5 size-3 lg:right-3 lg:top-4 sm:right-2 sm:top-3 top-2.5 right-2 text-gray-400" />
+                                </div>
+                            </motion.div>
 
-                <div className="relative">
-                    <input
-                        type="text"
-                        value={waypoints}
-                        onChange={(e) => {
-                            setWaypoints(e.target.value);
-                            fetchSuggestions3(
-                                e.target.value,
-                                setWaypointsSuggestions
-                            );
-                        }}
-                        placeholder="Enter waypoints location"
-                        className="p-2 border rounded w-full"
-                    />
-                    {waypointsSuggestions.length > 0 && (
-                        <ul className="absolute bg-white text-black border w-full">
-                            {waypointsSuggestions.map((suggestion, index) => (
-                                <li
-                                    key={index}
-                                    className="p-2 hover:bg-gray-200 cursor-pointer"
-                                    onClick={() => {
-                                        setWaypoints(suggestion);
-                                        setWaypointsSuggestions([]);
-                                    }}
-                                >
-                                    {suggestion}
-                                </li>
-                            ))}
-                        </ul>
-                    )}
-                </div>
+                            {/* waypoints */}
+                            <motion.div 
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5 }}
+                                className="xl:w-[300px] sm:mb-0 mb-2 lg:w-[200px] md:w-[150px] sm:w-[150px] w-full"
+                            >
+                                <label className="block sm:mb-3 mb-2 ml-1 font-semibold xl:text-base lg:text-sm text-xs">
+                                    Waypoint location
+                                </label>
+                                <div className="relative">
+                                    <input
+                                        type="text"
+                                        value={waypoints}
+                                        onChange={(e) => {
+                                            setWaypoints(e.target.value);
+                                            fetchSuggestions3(
+                                                e.target.value,
+                                                setWaypointsSuggestions
+                                            );
+                                        }}
+                                        placeholder="Waypoint location"
+                                        className="w-full xl:text-base lg:text-sm sm:text-xs text-[10px] lg:p-3 p-2 border border-gray-400 rounded-md outline-none"
+                                    />
+                                    {waypointsSuggestions.length > 0 && (
+                                        <ul className="absolute z-[1000] bg-white text-black border w-full shadow-md max-h-100 overflow-y-auto">
+                                            {waypointsSuggestions.map((suggestion, index) => (
+                                                <li
+                                                    key={index}
+                                                    className="p-2 hover:bg-gray-200 cursor-pointer"
+                                                    onClick={() => {
+                                                        setWaypoints(suggestion);
+                                                        setWaypointsSuggestions([]);
+                                                    }}
+                                                >
+                                                    {suggestion}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    )}
+                                    <FaRegDotCircle className="absolute xl:size-4 lg:size-3 sm:size-2.5 size-3 lg:right-3 lg:top-4 sm:right-2 sm:top-3 top-2.5 right-2 text-gray-400" />
+                                </div>
+                            </motion.div>
+                        </motion.div>
 
-                <button
-                    onClick={getRoute}
-                    className="bg-blue-500 cursor-pointer text-white px-4 py-2 rounded"
+                        {/* get route button */}
+                        <motion.div 
+                            whileTap={{ scale: 0.95 }}
+                            transition={{ type: "spring", stiffness: 200 }}
+                            className="bg-cyan-400 xl:mt-9 lg:mt-7 md:mt-8 sm:mt-4 mt-2 lg:text-base text-xs cursor-pointer text-black xl:px-8 lg:px-5 sm:px-2 px-2 font-semibold lg:my-1 sm:my-3 lg:pt-3 sm:py-2 py-1.5 sm:w-auto w-fit lg:translate-y-1 sm:-translate-y-0.5 rounded"    
+                            onClick={getRoute}
+                        >
+                            Get Route
+                        </motion.div>
+                    </motion.div>
+
+                    {/* estimated distance/duration/price */}
+                    <motion.div 
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, ease: "easeOut" }}
+                        className="flex items-end font-semibold lg:text-base sm:text-sm text-xs justify-between text-white mb-4"
+                    >
+                        <div>
+                            <p className="text-[#787B7B]">
+                                Estimated distance:
+                            </p>
+                            <p><strong>{distance}</strong></p>
+                        </div>
+                        <div>
+                            <p className="text-[#787B7B]">
+                                Estimated duration
+                            </p>
+                            <p><strong>{duration}</strong></p>
+                        </div>
+                        <div>
+                            <p className="text-[#787B7B]">
+                                Estimated Price
+                            </p>
+                            <p><strong>{price}</strong></p>
+                        </div>
+                    </motion.div>
+                </motion.div>
+
+                {/* Map Integration */}
+                <motion.div 
+                    className="w-full rounded-md overflow-hidden relative"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
                 >
-                    Get Route
-                </button>
-            </div>
+                    <MapContainer 
+                        center={start} 
+                        zoom={13} 
+                        className="xl:h-[500px] lg:h-[400px] md:h-[350px] sm:h-[320px] h-[250px]"
+                    >
+                        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                        <Marker position={start} />
+                        <Marker position={end} />
+                        <RoutingMachine start={start} end={end} />
+                    </MapContainer>
+                </motion.div>
 
-            <div className="flex justify-between">
-                <p>
-                    Estimated Distance: <strong>{distance}</strong>
-                </p>
-                <p>
-                    Estimated Duration: <strong>{duration}</strong>
-                </p>
-                <p>
-                    Estimated Price: <strong>₹{price}</strong>
-                </p>
-            </div>
-
-            {/* Google Map Integration */}
-            <MapContainer center={start} zoom={13} style={{ height: "500px", marginTop: "200px", width: "100%" }}>
-                <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                <Marker position={start} />
-                <Marker position={end} />
-                <RoutingMachine start={start} end={end} />
-            </MapContainer>
-        </div>
+                {/* submit button */}
+                <motion.div className="flex justify-end mt-2">
+                    <div 
+                        className="bg-cyan-400 lg:text-base sm:text-sm text-xs cursor-pointer text-black lg:px-8 sm:px-3 px-2 font-semibold lg:py-2 sm:py-1.5 p-1 rounded"
+                    >
+                        Submit
+                    </div>
+                </motion.div>
+            </motion.div>
+        </motion.div>
     );
 };
 
