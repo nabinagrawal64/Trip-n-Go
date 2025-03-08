@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import {MapContainer,Marker,TileLayer,useMap,} from "react-leaflet";
@@ -14,19 +13,26 @@ const API_KEY_GO_MAPS = 'AlzaSy_J30dfJViJOGlNUaxzzbIqQY3H18AcW1w'
 const CabBooking = () => {
     const [pickup, setPickup] = useState("");
     const [dropoff, setDropoff] = useState("");
+    const [waypoints, setWaypoints] = useState("");
+
     const [pickupSuggestions, setPickupSuggestions] = useState([]);
     const [dropoffSuggestions, setDropoffSuggestions] = useState([]);
+    const [waypointsSuggestions, setWaypointsSuggestions] = useState([]);
+
     const [pickupCoords, setPickupCoords] = useState("");
     const [dropoffCoords, setDropoffCoords] = useState("");
+    const [waypointsCoords, setWaypointsCoords] = useState([]);
+
     const [distance, setDistance] = useState(null);
     const [duration, setDuration] = useState(null);
     const [price, setPrice] = useState(null);
-    const [routePath, setRoutePath] = useState([]);
+
     const [origin, setOrigin] = useState("");
     const [destination, setDestination] = useState("");
+    const [middle, setMiddle] = useState("");
 
-    let start = [20.472833,85.890161]; // Kathmandu (Example)
-    let end = [20.281103,85.816885]; // Another location in Kathmandu
+    let start = [20.472833,85.890161]; 
+    let end = [20.281103,85.816885]; 
 
     const fetchSuggestions = async (input, setSuggestions) => {
         if (!input) return;
@@ -68,22 +74,34 @@ const CabBooking = () => {
         }
     };
 
+    const fetchSuggestions3 = async (input, setSuggestions) => {
+        if (!input) return;
+        const url = `https://api.olamaps.io/places/v1/autocomplete?input=${input}&api_key=${API_KEY_OLA}`;
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+            setSuggestions(data.predictions.map((place) => place.description));
+            if (data.predictions.length > 0) {
+                const firstLocation = data.predictions[0].geometry.location;
+                const way = `${firstLocation.lat},${firstLocation.lng}`;
+                setMiddle(way);
+                console.log(way); // Output: "20.92744,82.82344"
+            } else {
+                console.log("No location found");
+            }
+        } catch (error) {
+            console.error("Error fetching autocomplete suggestions:", error);
+        }
+    };
+
     const getRoute = async () => {
         if (!origin) return;
         console.log("origin: " + origin);
         console.log("destination: " + destination);
-
-        const originArray = origin.split(",").map(Number);
-        const endArray = destination.split(",").map(Number);
-
-        console.log("origin: " + originArray);
-        console.log("destination" + endArray);
-
-        start = originArray;
-        end = endArray;
+        console.log("waypoints: " + middle);
         
         // const url = `https://api.olamaps.io/routing/v1/directions?origin=${origin}&destinations=${destination}&api_key=${API_KEY_OLA}`;
-        const url_go_map = `https://maps.gomaps.pro/maps/api/directions/json?destination=${destination}&origin=${origin}&key=${API_KEY_GO_MAPS}`
+        const url_go_map = `https://maps.gomaps.pro/maps/api/directions/json?destination=${destination}&origin=${origin}&waypoints=${middle}&key=${API_KEY_GO_MAPS}`
         // const url_google = `https://maps.googleapis.com/maps/api/directions/json?origin=New+York,NY&destination=Los+Angeles,CA&mode=driving&key=${API_KEY_GOOGLE}`;
         console.log("url: ", url_go_map);
         try {
@@ -92,49 +110,71 @@ const CabBooking = () => {
             const data = await response.json();
             if (data.routes) {
                 const route = data.routes[0];
-                setDistance(route.legs[0].distance.text);
-                setDuration(route.legs[0].duration.text);
-                setPrice(parseInt(route.legs[0].distance.value / 1000) * 10); // ₹10 per km
+                if(route.legs[1]){
+                    setDistance(route.legs[0].distance.text + route.legs[1].distance.text);
+                    setDuration(route.legs[0].duration.text + route.legs[1].duration.text);
+                    setPrice(parseInt((route.legs[0].distance.value + route.legs[1].distance.value) / 100) * 10); // ₹10 per km
 
-                // Extract coordinates for route path
-                const path = route.legs[0].steps.map((step) => [
-                    step.start_location.lat,
-                    step.start_location.lng,
-                ]);
-                setRoutePath(path);
+                    console.log("route: ", route);
 
-                // Set pickup & dropoff coordinates
-                setPickupCoords(route.legs[0].start_location);
-                setDropoffCoords(route.legs[0].end_location);
+                    // Set pickup, waypoints & dropoff coordinates
+                    setPickupCoords([route.legs[0].start_location.lat, route.legs[0].start_location.lng]);
+                    setWaypointsCoords([route.legs[0].end_location.lat, route.legs[0].end_location.lng])
+                    setDropoffCoords([route.legs[1].end_location.lat, route.legs[1].end_location.lng]);
+                } else {
+                    setDistance(route.legs[0].distance.text);
+                    setDuration(route.legs[0].duration.text);
+                    setPrice(parseInt((route.legs[0].distance.value) / 1000) * 10); // ₹10 per km
+
+                    console.log("route: ", route);
+
+                    // Set pickup & dropoff coordinates
+                    setPickupCoords([route.legs[0].start_location.lat, route.legs[0].start_location.lng]);
+                    setDropoffCoords([route.legs[0].end_location.lat, route.legs[0].end_location.lng]);
+                }
+
+                console.log("pickupCoords: ", pickupCoords);
+                console.log("dropoffCoords: ", dropoffCoords);
+                console.log("waypointsCoords: ", waypointsCoords);
+            }
+            else{
+                console.log("No routes found !")
             }
         } catch (error) {
             console.error("Error fetching route:", error);
         }
     };
 
-    const RoutingMachine = ({ start, end }) => {
+    const RoutingMachine = () => {
         const map = useMap();
 
         useEffect(() => {
             if (!map) return;
-
-            const routingControl = L.Routing.control({
-                waypoints: [
-                    L.latLng(start[0], start[1]),
-                    L.latLng(end[0], end[1]),
-                ],
-                routeWhileDragging: true,
-            }).addTo(map);
+            let routingControl 
+            if(waypointsCoords.length > 0) {
+                routingControl = L.Routing.control({
+                    waypoints: [
+                        L.latLng(pickupCoords[0], pickupCoords[1]),
+                        L.latLng(waypointsCoords[0], waypointsCoords[1]),
+                        L.latLng(dropoffCoords[0], dropoffCoords[1]),
+                    ],
+                    routeWhileDragging: true,
+                }).addTo(map);
+            } else {
+                routingControl = L.Routing.control({
+                    waypoints: [
+                        L.latLng(pickupCoords[0], pickupCoords[1]),
+                        L.latLng(dropoffCoords[0], dropoffCoords[1]),
+                    ],
+                    routeWhileDragging: true,
+                }).addTo(map);
+            }
 
             return () => map.removeControl(routingControl);
-        }, [map, start, end]);
+        }, [map]);
 
         return null;
     };  
-
-    
-    // const originArray = origin.split(",").map(Number);
-    // const endArray = destination.split(",").map(Number);
 
     return (
         <div className="p-6 bg-gray-900 text-white">
@@ -203,6 +243,38 @@ const CabBooking = () => {
                     )}
                 </div>
 
+                <div className="relative">
+                    <input
+                        type="text"
+                        value={waypoints}
+                        onChange={(e) => {
+                            setWaypoints(e.target.value);
+                            fetchSuggestions3(
+                                e.target.value,
+                                setWaypointsSuggestions
+                            );
+                        }}
+                        placeholder="Enter waypoints location"
+                        className="p-2 border rounded w-full"
+                    />
+                    {waypointsSuggestions.length > 0 && (
+                        <ul className="absolute bg-white text-black border w-full">
+                            {waypointsSuggestions.map((suggestion, index) => (
+                                <li
+                                    key={index}
+                                    className="p-2 hover:bg-gray-200 cursor-pointer"
+                                    onClick={() => {
+                                        setWaypoints(suggestion);
+                                        setWaypointsSuggestions([]);
+                                    }}
+                                >
+                                    {suggestion}
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
+
                 <button
                     onClick={getRoute}
                     className="bg-blue-500 cursor-pointer text-white px-4 py-2 rounded"
@@ -224,7 +296,7 @@ const CabBooking = () => {
             </div>
 
             {/* Google Map Integration */}
-            <MapContainer center={start} zoom={13} style={{ height: "500px", width: "100%" }}>
+            <MapContainer center={start} zoom={13} style={{ height: "500px", marginTop: "200px", width: "100%" }}>
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                 <Marker position={start} />
                 <Marker position={end} />

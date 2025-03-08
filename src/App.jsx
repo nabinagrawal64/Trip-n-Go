@@ -14,7 +14,6 @@ import Reviews from "./components/Dashboard/user/Reviews";
 import Vehicles from "./components/Dashboard/user/MyVehicles";
 import BookedVehicles from "./components/Dashboard/user/BookedVehicles";
 import BookPage from "./pages/BookPage";
-import BookingUI from "./pages/BookingUi";
 
 const router = createBrowserRouter([
     {
@@ -41,7 +40,6 @@ const router = createBrowserRouter([
 
             { path: "/search", element: <SearchResult /> },
             { path: "/carDetails/:id", element: <CarDetails /> },
-            // { path: "/booking", element: <BookingUI/>},
             { path: "/booking", element: <BookPage/>},
         ],
     }
