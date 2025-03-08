@@ -125,7 +125,7 @@ const Favorites = () => {
     
     return (
         <div className="text-white min-h-screen sm:p-6 p-4">
-            <h2 className="lg:text-2xl text-xl mx-auto font-bold sm:ml-0 ml-10">Favorites</h2>
+            <h2 className="lg:text-2xl text-xl mx-auto font-bold text-center">Favorites</h2>
             <div className="col-span-3 sm:translate-x-5 -translate-x-3">
                 {cars.map((car, index) => (
                     <motion.div
