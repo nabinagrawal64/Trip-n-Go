@@ -6,6 +6,7 @@ import "leaflet/dist/leaflet.css";
 import "leaflet-routing-machine";
 import { motion } from "framer-motion";
 import { FaLocationArrow, FaRegDotCircle } from "react-icons/fa";
+import "./demo.css";
 
 // const API_KEY_GOOGLE = "AIzaSyDLKAZoyY16HjFXgv3N7lZ_H-tM4CVJ9eo";
 const API_KEY_GOOGLE = "AIzaSyDLKAZoyY16HjFXgv3N7lZ_H-tM4CVJ9eo  ";
@@ -188,6 +189,10 @@ const CabBooking = () => {
                         L.latLng(dropoffCoords[0], dropoffCoords[1]),
                     ],
                     routeWhileDragging: true,
+                    lineOptions: {
+                        styles: [{ color: "cyan", weight: 4, opacity: 0.7 }],
+                    },
+                    draggableWaypoints: false,
                 }).addTo(map);
             } else {
                 routingControl = L.Routing.control({
@@ -196,6 +201,10 @@ const CabBooking = () => {
                         L.latLng(dropoffCoords[0], dropoffCoords[1]),
                     ],
                     routeWhileDragging: true,
+                    lineOptions: {
+                        styles: [{ color: "cyan", weight: 4, opacity: 0.9 }],
+                    },
+                    draggableWaypoints: false,
                 }).addTo(map);
             }
 
