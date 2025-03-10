@@ -16,8 +16,10 @@ const API_KEY_GO_MAPS = 'AlzaSy_J30dfJViJOGlNUaxzzbIqQY3H18AcW1w'
 const CabBooking = () => {
     const [pickup, setPickup] = useState("");
     const [dropoff, setDropoff] = useState("");
+
     const [waypoints, setWaypoints] = useState([]);
     const [showWaypoints, setShowWaypoints] = useState(false);
+    const [activeWaypointIndex, setActiveWaypointIndex] = useState(null);
 
     const [pickupSuggestions, setPickupSuggestions] = useState([]);
     const [dropoffSuggestions, setDropoffSuggestions] = useState([]);
@@ -84,6 +86,7 @@ const CabBooking = () => {
 
     const addWaypoint = () => {
         setWaypoints([...waypoints, ""]);
+        setShowWaypoints(true);
     };
 
     const removeWaypoint = (index) => {
@@ -389,12 +392,12 @@ const CabBooking = () => {
                                 </label>
                                 
                                 {/* Enter waypoints text and button */}
-                                <div 
-                                    className="flex gap-2"
-                                    onClick={() => setShowWaypoints(!showWaypoints)}
-                                >
+                                <div className="flex gap-2">
                                     {/* Enter waypoints text */}
-                                    <div className="w-full flex lg:gap-5 gap-x-2 cursor-pointer xl:text-base lg:text-sm sm:text-xs text-[10px] lg:p-3 p-2 border border-gray-400 rounded-md outline-none">
+                                    <div 
+                                        onClick={() => setShowWaypoints(!showWaypoints)}
+                                        className="w-full flex lg:gap-5 gap-x-2 cursor-pointer xl:text-base lg:text-sm sm:text-xs text-[10px] lg:p-3 p-2 border border-gray-400 rounded-md outline-none"
+                                    >
                                         <span className="text-white/50"> Waypoint location</span>
                                         <div className="lg:mt-1 mt-0.5">
                                             {showWaypoints ? <FaChevronUp /> : <FaChevronDown />}
@@ -418,10 +421,10 @@ const CabBooking = () => {
                                                 <input
                                                     ref={inputRef}
                                                     type="text"
-                                                    autoFocus
+                                                    onFocus={() => setActiveWaypointIndex(index) }
                                                     value={waypoint}
                                                     onChange={(e) => {
-                                                        handleWaypointChange(index, e.target.value)
+                                                        handleWaypointChange(activeWaypointIndex, e.target.value)
                                                         fetchSuggestions3(e.target.value, setWaypointsSuggestions);
                                                     }}
                                                     placeholder="Waypoint location"
@@ -438,8 +441,7 @@ const CabBooking = () => {
                                                                 key={index}
                                                                 className="p-2 hover:bg-gray-200 cursor-pointer"
                                                                 onClick={() => {
-                                                                    console.log("index: " + index)
-                                                                    handleWaypointChange(index, suggestion)
+                                                                    handleWaypointChange(activeWaypointIndex, suggestion)
                                                                     setWaypointsSuggestions([]);
                                                                 }}
                                                             >
