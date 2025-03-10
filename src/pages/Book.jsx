@@ -1,113 +1,101 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
-import { useEffect, useState } from "react";
-import { MapContainer, Marker, TileLayer, useMap } from "react-leaflet";
-import L from "leaflet";
-import "leaflet/dist/leaflet.css";
-import "leaflet-routing-machine";
+import { useState, useEffect } from "react";
+import { FaTrash, FaPlus, FaChevronDown, FaChevronUp } from "react-icons/fa";
 
-const API_KEY_OLA = "PBAcSepBB2mZNagmG7i1MMCpeXeZqqzRE2RiVdAg";
-const API_KEY_GO_MAPS = 'AlzaSy_J30dfJViJOGlNUaxzzbIqQY3H18AcW1w';
-
-const CabBooking = () => {
-    const [pickup, setPickup] = useState("");
-    const [dropoff, setDropoff] = useState("");
-    const [suggestions, setSuggestions] = useState([]);
-    const [pickupCoords, setPickupCoords] = useState(null);
-    const [dropoffCoords, setDropoffCoords] = useState(null);
+export default function WaypointSelector() {
     const [waypoints, setWaypoints] = useState([]);
-    const [distance, setDistance] = useState(null);
-    const [duration, setDuration] = useState(null);
-    const [price, setPrice] = useState(null);
+    const [showWaypoints, setShowWaypoints] = useState(false);
 
-    const fetchSuggestions = async (input, setLocation, setCoords) => {
-        if (!input) return;
-        const url = `https://api.olamaps.io/places/v1/autocomplete?input=${input}&api_key=${API_KEY_OLA}`;
-        try {
-            const response = await fetch(url);
-            const data = await response.json();
-            setSuggestions(data.predictions.map((place) => place.description));
-            if (data.predictions.length > 0) {
-                const firstLocation = data.predictions[0].geometry.location;
-                setCoords([firstLocation.lat, firstLocation.lng]);
-            }
-        } catch (error) {
-            console.error("Error fetching autocomplete suggestions:", error);
-        }
+    useEffect(() => {
+        const storedWaypoints = JSON.parse(localStorage.getItem("waypoints")) || [];
+        setWaypoints(storedWaypoints);
+    }, []);
+    
+    useEffect(() => {
+        localStorage.setItem("waypoints", JSON.stringify(waypoints));
+    }, [waypoints]);
+
+    const addWaypoint = () => {
+        setWaypoints([...waypoints, ""]);
     };
 
-    const getRoute = async () => {
-        if (!pickupCoords || !dropoffCoords) return;
-        const waypointsString = waypoints.map(wp => `${wp[0]},${wp[1]}`).join('|');
-        const url = `https://maps.gomaps.pro/maps/api/directions/json?origin=${pickupCoords.join(',')}&destination=${dropoffCoords.join(',')}&waypoints=${waypointsString}&key=${API_KEY_GO_MAPS}`;
-        try {
-            const response = await fetch(url);
-            const data = await response.json();
-            if (data.routes.length > 0) {
-                const route = data.routes[0];
-                setDistance(route.legs[0].distance.text);
-                setDuration(route.legs[0].duration.text);
-                setPrice(parseInt(route.legs[0].distance.value / 1000) * 10);
-            }
-        } catch (error) {
-            console.error("Error fetching route:", error);
-        }
+    const removeWaypoint = (index) => {
+        const updatedWaypoints = waypoints.filter((_, i) => i !== index);
+        setWaypoints(updatedWaypoints);
+    };
+
+    const handleWaypointChange = (index, value) => {
+        const updatedWaypoints = [...waypoints];
+        updatedWaypoints[index] = value;
+        setWaypoints(updatedWaypoints);
     };
 
     return (
-        <div className="p-6 bg-gray-900 text-white">
-            <div className="flex gap-4 mb-4">
-                <input
-                    type="text"
-                    value={pickup}
-                    onChange={(e) => {
-                        setPickup(e.target.value);
-                        fetchSuggestions(e.target.value, setPickup, setPickupCoords);
-                    }}
-                    placeholder="Enter pick up location"
-                    className="p-2 border rounded w-full"
-                />
-                <input
-                    type="text"
-                    value={dropoff}
-                    onChange={(e) => {
-                        setDropoff(e.target.value);
-                        fetchSuggestions(e.target.value, setDropoff, setDropoffCoords);
-                    }}
-                    placeholder="Enter dropoff location"
-                    className="p-2 border rounded w-full"
-                />
-                <input
-                    type="text"
-                    placeholder="Enter waypoint lat,lng"
-                    onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                            const [lat, lng] = e.target.value.split(",").map(Number);
-                            if (!isNaN(lat) && !isNaN(lng)) {
-                                setWaypoints([...waypoints, [lat, lng]]);
-                                e.target.value = "";
-                            }
-                        }
-                    }}
-                    className="p-2 border rounded w-full"
-                />
-                <button onClick={getRoute} className="bg-blue-500 text-white px-4 py-2 rounded">Get Route</button>
+        <div className="relative bg-black text-white p-4 rounded-md">
+            <div className="flex gap-4">
+                {/* Pickup Location */}
+                <div className="flex-1">
+                    <label className="font-bold">Pick up location</label>
+                    <input
+                        className="w-full p-2 bg-gray-800 rounded-md"
+                        placeholder="Enter pick up location"
+                    />
+                </div>
+
+                {/* Dropoff Location */}
+                <div className="flex-1">
+                    <label className="font-bold">Dropoff location</label>
+                    <input
+                        className="w-full p-2 bg-gray-800 rounded-md"
+                        placeholder="Enter Dropoff location"
+                    />
+                </div>
+
+                {/* Waypoint Location */}
+                <div className="flex-1 relative">
+                    <label className="font-bold">Waypoint location</label>
+                    <div
+                        className="w-full flex items-center justify-between p-2 bg-gray-800 rounded-md cursor-pointer"
+                        onClick={() => setShowWaypoints(!showWaypoints)}
+                    >
+                        <span>Enter Waypoint location</span>
+                        {showWaypoints ? <FaChevronUp /> : <FaChevronDown />}
+                    </div>
+                    {/* Waypoints Dropdown */}
+                    {showWaypoints && ( 
+                        <div className="absolute top-full left-0 w-full bg-gray-900 p-2 rounded-md mt-1 shadow-lg z-10">
+                            {waypoints.map((waypoint, index) => (
+                                <div key={index} className="flex items-center gap-2 mt-2" >
+                                    <input
+                                        className="w-full p-2 bg-gray-800 rounded-md"
+                                        value={waypoint}
+                                        onChange={(e) => handleWaypointChange(index, e.target.value)}
+                                        type="text"
+                                        placeholder="Enter Waypoint"
+                                    />
+
+                                    {/* delete button */}
+                                    <button
+                                        onClick={() => removeWaypoint(index)}
+                                        className="cursor-pointer text-red-500"
+                                    >
+                                        <FaTrash />
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
+
+                {/* Add Waypoint Button */}
+                <button
+                    className="p-2 bg-gray-700 rounded-md hover:bg-gray-600"
+                    onClick={addWaypoint}
+                >
+                    <FaPlus />
+                </button>
             </div>
 
-            <div className="flex justify-between">
-                <p>Estimated Distance: <strong>{distance}</strong></p>
-                <p>Estimated Duration: <strong>{duration}</strong></p>
-                <p>Estimated Price: <strong>₹{price}</strong></p>
-            </div>
-
-            <MapContainer center={[20.472833, 85.890161]} zoom={13} style={{ height: "500px", marginTop: "20px", width: "100%" }}>
-                <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                {pickupCoords && <Marker position={pickupCoords} />}
-                {dropoffCoords && <Marker position={dropoffCoords} />}
-                {waypoints.map((wp, index) => <Marker key={index} position={wp} />)}
-            </MapContainer>
+            
         </div>
     );
-};
-
-export default CabBooking;
+}
