@@ -32,11 +32,6 @@ const CabBooking = () => {
     const [distance, setDistance] = useState(null);
     const [duration, setDuration] = useState(null);
     const [price, setPrice] = useState(null);
-
-    const [origin, setOrigin] = useState("");
-    const [destination, setDestination] = useState("");
-    const [middle, setMiddle] = useState("");
-
     const inputRef = useRef(null); // Reference for input box
     const dropdownRef = useRef(null); // Reference for suggestions box
 
@@ -106,15 +101,8 @@ const CabBooking = () => {
         try {
             const response = await fetch(url);
             const data = await response.json();
+            console.log("pickup data: " + JSON.stringify(data.predictions));
             setSuggestions(data.predictions.map((place) => place.description));
-            if (data.predictions.length > 0) {
-                const firstLocation = data.predictions[0].geometry.location;
-                const or = `${firstLocation.lat},${firstLocation.lng}`;
-                setOrigin(or);
-                console.log(or); // Output: "20.92744,82.82344"
-            } else {
-                console.log("No location found");
-            }
         } catch (error) {
             console.error("Error fetching autocomplete suggestions:", error);
         }
@@ -127,14 +115,6 @@ const CabBooking = () => {
             const response = await fetch(url);
             const data = await response.json();
             setSuggestions(data.predictions.map((place) => place.description));
-            if (data.predictions.length > 0) {
-                const firstLocation = data.predictions[0].geometry.location;
-                const or = `${firstLocation.lat},${firstLocation.lng}`;
-                setDestination(or);
-                console.log(or); // Output: "20.92744,82.82344"
-            } else {
-                console.log("No location found");
-            }
         } catch (error) {
             console.error("Error fetching autocomplete suggestions:", error);
         }
@@ -147,14 +127,6 @@ const CabBooking = () => {
             const response = await fetch(url);
             const data = await response.json();
             setSuggestions(data.predictions.map((place) => place.description));
-            if (data.predictions.length > 0) {
-                const firstLocation = data.predictions[0].geometry.location;
-                const way = `${firstLocation.lat},${firstLocation.lng}`;
-                setMiddle(way);
-                console.log(way); // Output: "20.92744,82.82344"
-            } else {
-                console.log("No location found");
-            }
         } catch (error) {
             console.error("Error fetching autocomplete suggestions:", error);
         }
@@ -176,26 +148,39 @@ const CabBooking = () => {
     };
 
     const getRoute = async () => {
-        if (!origin) return;
-        console.log("origin: " + origin);
-        console.log("destination: " + destination);
-        console.log("waypoints: " + middle);
+        console.log("Pickup: " + pickup);
+        console.log("dropoff: " + dropoff);
+        console.log("waypoints: " + waypoints);
+        if (!pickup || !dropoff) return;
+        const waypointsParam = "optimize:true|" + waypoints.join("|");
         
         // const url = `https://api.olamaps.io/routing/v1/directions?origin=${origin}&destinations=${destination}&api_key=${API_KEY_OLA}`;
-        const url_go_map = `https://maps.gomaps.pro/maps/api/directions/json?destination=${destination}&origin=${origin}&waypoints=${middle}&key=${API_KEY_GO_MAPS}`
+        let url_go_map = "";
+        if(waypoints) url_go_map = `https://maps.gomaps.pro/maps/api/directions/json?destination=${dropoff}&origin=${pickup}&waypoints=${waypointsParam}&key=${API_KEY_GO_MAPS}`
+        else url_go_map = `https://maps.gomaps.pro/maps/api/directions/json?destination=${dropoff}&origin=${pickup}&key=${API_KEY_GO_MAPS}`
         // const url_google = `https://maps.googleapis.com/maps/api/directions/json?origin=New+York,NY&destination=Los+Angeles,CA&mode=driving&key=${API_KEY_GOOGLE}`;
         console.log("url: ", url_go_map);
         try {
             const response = await fetch(url_go_map);
             console.log("data: ", response);
             const data = await response.json();
+            console.log("data: ", data);
             if (data.routes) {
                 const route = data.routes[0];
-                if(route.legs[1]){
-                    const totalDistance = (parseFloat(route.legs[0].distance.text.replace(" km", "")) + parseFloat(route.legs[1].distance.text.replace(" km", ""))).toFixed(2);;
+                console.log("route before:",route);
+                if(route.legs.length > 1){
+                    let totalDistance = 0;
+                    let totalMinutes = 0;
+                    let waypointsCoordsArray = [];
+                    route.legs.forEach((leg) => {
+                        totalDistance += parseFloat(leg.distance.text.replace(" km", ""));
+                        totalMinutes += parseDuration(route.legs[0].duration.text) + parseDuration(route.legs[1].duration.text);
+
+                        waypointsCoordsArray.push([leg.start_location.lat, leg.start_location.lng]);
+                    });
+                    // const totalDistance = (parseFloat(route.legs[0].distance.text.replace(" km", "")) + parseFloat(route.legs[1].distance.text.replace(" km", ""))).toFixed(2);;
                     setDistance(totalDistance + " km");
 
-                    const totalMinutes = parseDuration(route.legs[0].duration.text) + parseDuration(route.legs[1].duration.text);
                     const hours = Math.floor(totalMinutes / 60);
                     const minutes = totalMinutes % 60;
                     const formattedDuration = hours > 0 ? `${hours} hr ${minutes} min` : `${minutes} min`;
@@ -208,16 +193,15 @@ const CabBooking = () => {
 
                     // Set pickup, waypoints & dropoff coordinates
                     setPickupCoords([route.legs[0].start_location.lat, route.legs[0].start_location.lng]);
-                    setWaypointsCoords([route.legs[0].end_location.lat, route.legs[0].end_location.lng])
-                    setDropoffCoords([route.legs[1].end_location.lat, route.legs[1].end_location.lng]);
+                    setWaypointsCoords(waypointsCoordsArray);
+                    setDropoffCoords([route.legs[route.legs.length - 1].end_location.lat, route.legs[route.legs.length - 1].end_location.lng]);
                 } else {
                     setDistance(route.legs[0].distance.text);
                     setDuration(route.legs[0].duration.text);
                     setPrice(parseInt((route.legs[0].distance.value) / 1000) * 10); // ₹10 per km
 
-                    console.log("route: ", route);
+                    console.log("route after: ", route);
 
-                    // Set pickup & dropoff coordinates
                     setPickupCoords([route.legs[0].start_location.lat, route.legs[0].start_location.lng]);
                     setDropoffCoords([route.legs[0].end_location.lat, route.legs[0].end_location.lng]);
                 }
@@ -241,10 +225,11 @@ const CabBooking = () => {
             if (!map) return;
             let routingControl 
             if(waypointsCoords.length > 0) {
+                ("waypointsCoords in routing machine:", waypointsCoords);
                 routingControl = L.Routing.control({
                     waypoints: [
                         L.latLng(pickupCoords[0], pickupCoords[1]),
-                        L.latLng(waypointsCoords[0], waypointsCoords[1]),
+                        ...waypointsCoords.map(coords => L.latLng(coords[0], coords[1])),
                         L.latLng(dropoffCoords[0], dropoffCoords[1]),
                     ],
                     routeWhileDragging: true,
@@ -331,7 +316,7 @@ const CabBooking = () => {
                                                 </li>
                                             ))}
                                         </ul>
-                                        )}
+                                    )}
                                     <FaLocationArrow className="absolute xl:size-4 lg:size-3 sm:size-2.5 size-3 lg:right-3 lg:top-4 sm:right-2 sm:top-3 top-2.5 right-2 text-gray-400" />
                                 </div>
                             </motion.div>
@@ -396,10 +381,10 @@ const CabBooking = () => {
                                     {/* Enter waypoints text */}
                                     <div 
                                         onClick={() => setShowWaypoints(!showWaypoints)}
-                                        className="w-full flex lg:gap-5 gap-x-2 cursor-pointer xl:text-base lg:text-sm sm:text-xs text-[10px] lg:p-3 p-2 border border-gray-400 rounded-md outline-none"
+                                        className="w-full flex justify-between cursor-pointer xl:text-base lg:text-sm sm:text-xs text-[10px] lg:p-3 p-2 border border-gray-400 rounded-md outline-none"
                                     >
                                         <span className="text-white/50"> Waypoint location</span>
-                                        <div className="lg:mt-1 mt-0.5">
+                                        <div className="flex items-center ">
                                             {showWaypoints ? <FaChevronUp /> : <FaChevronDown />}
                                         </div>
                                     </div>
