@@ -6,7 +6,6 @@ import "leaflet/dist/leaflet.css";
 import "leaflet-routing-machine";
 import { motion } from "framer-motion";
 import { FaChevronDown, FaChevronUp, FaLocationArrow, FaPlus, FaRegDotCircle, FaTrash } from "react-icons/fa";
-import "./demo.css";
 
 // const API_KEY_GOOGLE = "AIzaSyDLKAZoyY16HjFXgv3N7lZ_H-tM4CVJ9eo";
 const API_KEY_GOOGLE = "AIzaSyDLKAZoyY16HjFXgv3N7lZ_H-tM4CVJ9eo  ";
@@ -27,7 +26,7 @@ const CabBooking = () => {
 
     const [pickupCoords, setPickupCoords] = useState("");
     const [dropoffCoords, setDropoffCoords] = useState("");
-    const [waypointsCoords, setWaypointsCoords] = useState([]);
+    const [waypointsCoords, setWaypointsCoords] = useState([]); 
 
     const [distance, setDistance] = useState(null);
     const [duration, setDuration] = useState(null);
@@ -87,6 +86,9 @@ const CabBooking = () => {
     const removeWaypoint = (index) => {
         const updatedWaypoints = waypoints.filter((_, i) => i !== index);
         setWaypoints(updatedWaypoints);
+
+        const updatedWaypointsCoords = waypointsCoords.filter((_, i) => i !== index);
+        setWaypointsCoords(updatedWaypointsCoords);
     };
 
     const handleWaypointChange = (index, value) => {
@@ -173,13 +175,13 @@ const CabBooking = () => {
                     let totalMinutes = 0;
                     let waypointsCoordsArray = [];
                     route.legs.forEach((leg) => {
-                        totalDistance += parseFloat(leg.distance.text.replace(" km", "")).toFixed(2);
-                        totalMinutes += parseDuration(leg.duration.text) + parseDuration(leg.duration.text);
+                        totalDistance += parseFloat(leg.distance.text.replace(" km", ""));
+                        totalMinutes += parseDuration(leg.duration.text);
 
                         waypointsCoordsArray.push([leg.start_location.lat, leg.start_location.lng]);
                     });
                     // const totalDistance = (parseFloat(route.legs[0].distance.text.replace(" km", "")) + parseFloat(route.legs[1].distance.text.replace(" km", ""))).toFixed(2);;
-                    setDistance(totalDistance + " km");
+                    setDistance(totalDistance.toFixed(2) + " km");
 
                     const hours = Math.floor(totalMinutes / 60);
                     const minutes = totalMinutes % 60;
@@ -224,7 +226,7 @@ const CabBooking = () => {
         useEffect(() => {
             if (!map) return;
             let routingControl 
-            if(waypointsCoords.length > 0) {
+            if(waypoints.length > 0) {
                 ("waypointsCoords in routing machine:", waypointsCoords);
                 routingControl = L.Routing.control({
                     waypoints: [
