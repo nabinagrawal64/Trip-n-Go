@@ -6,6 +6,7 @@ import "leaflet/dist/leaflet.css";
 import "leaflet-routing-machine";
 import { motion } from "framer-motion";
 import { FaChevronDown, FaChevronUp, FaLocationArrow, FaPlus, FaRegDotCircle, FaTrash } from "react-icons/fa";
+import "./demo.css"
 
 // const API_KEY_GOOGLE = "AIzaSyDLKAZoyY16HjFXgv3N7lZ_H-tM4CVJ9eo";
 const API_KEY_GOOGLE = "AIzaSyDLKAZoyY16HjFXgv3N7lZ_H-tM4CVJ9eo  ";
