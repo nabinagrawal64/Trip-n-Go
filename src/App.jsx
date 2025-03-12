@@ -14,8 +14,6 @@ import History from "./components/Dashboard/user/History";
 import Reviews from "./components/Dashboard/user/Reviews";
 import Vehicles from "./components/Dashboard/user/MyVehicles";
 import BookedVehicles from "./components/Dashboard/user/BookedVehicles";
-import BookPage from "./pages/BookPage";
-import Book from "./pages/Book";
 import CabBooking from "./pages/BookingUi";
 
 const router = createBrowserRouter([
