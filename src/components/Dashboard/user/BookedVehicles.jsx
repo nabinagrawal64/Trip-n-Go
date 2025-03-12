@@ -104,7 +104,7 @@ const Bookings = () => {
                         transition={{ duration: 0.5, delay: index * 0.1 }}
                         className="flex items-center justify-center p-4 lg:gap-x-10 sm:gap-x-5 rounded-lg shadow-md"
                     >
-                        <div className="xl:p-4 flex p-2.5 mt-1 sm:mt-2 xl:tracking-widest">
+                        <div className="xl:p-4 flex mt-1 sm:mt-2 xl:tracking-widest">
                             {/* Car Image */}
                             <img
                                 src={car.image}
@@ -115,13 +115,13 @@ const Bookings = () => {
                             {/* deatils */}
                             <div className="lg:mt-2 flex xl:gap-x-40 lg:gap-8 md:gap-6 gap-3">
                                 {/* Left part */}
-                                <div className="xl:space-y-5 md:space-y-3 space-y-0.5 xl:min-w-[300px] lg:min-w-[240px] min-w-[110px] flex flex-col xl:justify-center">
+                                <div className="xl:space-y-5 md:space-y-3 space-y-0.5 xl:min-w-[300px] lg:min-w-[240px] min-w-[120px] flex flex-col xl:justify-center">
                                     {/* Car name and provider name */}
                                     <div>
                                         <h2 className="xl:text-2xl lg:text-xl md:text-sm truncate text-[11px] font-bold">
                                             {car?.name}
                                         </h2>
-                                        <p className="text-gray-400 xl:text-lg lg:text-sm md:text-xs text-[9px] mt-1">
+                                        <p className="text-gray-400 xl:text-lg lg:text-sm md:text-xs text-[9px] sm:mt-1">
                                             - By {car?.company}
                                         </p>
                                     </div>
@@ -174,9 +174,9 @@ const Bookings = () => {
                                     {/* Date */}
                                     <div className="flex flex-col items-end w-fit h-fit lg:gap-1 rounded-xl lg:text-sm md:text-xs text-[7px] lg:p-2 sm:p-1.5 py-1 px-2 md:mt-1">
                                         <span>From</span>
-                                        <p className="text-white flex"><span><CalendarCheck2 className="lg:size-4 md:size-3 size-2 mr-1" /></span>{car.startDate}</p>
+                                        <p className="text-white flex"><span><CalendarCheck2 className="lg:size-4 md:size-3 size-2 sm:mr-1 mr-0.5" /></span>{car.startDate}</p>
                                         <span>To</span>
-                                        <p className="text-white flex"><span><CalendarCheck2 className="lg:size-4 md:size-3 size-2 mr-1" /></span>{car.endDate}</p>
+                                        <p className="text-white flex"><span><CalendarCheck2 className="lg:size-4 md:size-3 size-2 sm:mr-1 mr-0.5" /></span>{car.endDate}</p>
                                     </div>
 
                                     {/* Buttons */}
