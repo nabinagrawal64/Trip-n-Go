@@ -173,8 +173,8 @@ const CabBooking = () => {
                     let totalMinutes = 0;
                     let waypointsCoordsArray = [];
                     route.legs.forEach((leg) => {
-                        totalDistance += parseFloat(leg.distance.text.replace(" km", ""));
-                        totalMinutes += parseDuration(route.legs[0].duration.text) + parseDuration(route.legs[1].duration.text);
+                        totalDistance += parseFloat(leg.distance.text.replace(" km", "")).toFixed(2);
+                        totalMinutes += parseDuration(leg.duration.text) + parseDuration(leg.duration.text);
 
                         waypointsCoordsArray.push([leg.start_location.lat, leg.start_location.lng]);
                     });
@@ -265,9 +265,9 @@ const CabBooking = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
         > 
-            <motion.div className="w-[87%]">
+            <motion.div className="sm:w-[87%] w-[97vw]">
                 {/* location + estimated */}
-                <motion.div className="w-full flex-col gap-20">
+                <motion.div className="sm:w-full w-[90%] mx-auto flex-col gap-20">
                     {/* top items */}
                     <motion.div 
                         initial={{ opacity: 0, y: -10 }}
@@ -275,7 +275,7 @@ const CabBooking = () => {
                         transition={{ duration: 0.5 }} 
                         className="flex sm:flex-row flex-col sm:gap-3 justify-between mb-10"
                     >
-                        {/* location */}
+                        {/* Location */}
                         <motion.div className="flex sm:flex-row flex-col lg:gap-10 md:gap-5 sm:gap-2 ">
                             {/* pickup */}
                             <motion.div
@@ -450,14 +450,26 @@ const CabBooking = () => {
                             </motion.div>
                         </motion.div>
 
-                        {/* get route button */}
-                        <motion.div 
-                            whileTap={{ scale: 0.95 }}
-                            transition={{ type: "spring", stiffness: 200 }}
-                            className="bg-cyan-400 xl:mt-9 lg:mt-7 md:mt-8 sm:mt-4 mt-2 lg:text-base text-xs cursor-pointer text-black xl:px-8 lg:px-5 sm:px-2 px-2 font-semibold lg:my-1 sm:my-3 lg:pt-3 sm:py-2 py-1.5 sm:w-auto w-fit lg:translate-y-1 sm:-translate-y-0.5 rounded"    
-                            onClick={getRoute}
-                        >
-                            Get Route
+                        {/* Get route button and submit button for mobile */}
+                        <motion.div className="flex justify-between sm:mt-0 mt-2">
+                            <motion.div 
+                                whileTap={{ scale: 0.95 }}
+                                transition={{ type: "spring", stiffness: 200 }}
+                                className="bg-cyan-400 xl:mt-9 lg:mt-7 md:mt-8 sm:mt-6 mt-2 lg:text-base md:text-[11px] sm:text-[9px] text-xs cursor-pointer text-black xl:px-8 lg:px-5 px-2 font-semibold lg:my-1 sm:my-3 lg:pt-3 sm:py-2 py-1.5 sm:w-auto lg:h-12 md:h-8 sm:h-12 w-fit lg:translate-y-1 sm:-translate-y-0.5 rounded"    
+                                onClick={getRoute}
+                            >
+                                Get Route
+                            </motion.div>
+                            
+                            {/* Submit button for mobile */}
+                            <motion.div 
+                                whileTap={{ scale: 0.95 }}
+                                transition={{ type: "spring", stiffness: 200 }}
+                                className="sm:hidden visible bg-cyan-400 mt-2 text-xs cursor-pointer text-black px-2 font-semibold py-1.5 w-fit rounded"    
+                                onClick={getRoute}
+                            >
+                                Submit
+                            </motion.div>
                         </motion.div>
                     </motion.div>
 
@@ -498,8 +510,10 @@ const CabBooking = () => {
                 >
                     <MapContainer 
                         center={start} 
-                        zoom={13} 
-                        className="xl:h-[500px] lg:h-[400px] md:h-[350px] sm:h-[320px] h-[250px]"
+                        zoom={13}
+                        scrollWheelZoom={false} 
+                        touchZoom={true}
+                        className="xl:h-[500px] lg:h-[400px] md:h-[350px] sm:h-[320px] h-screen w-screen"
                     >
                         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                         <Marker position={start} />
@@ -509,7 +523,7 @@ const CabBooking = () => {
                 </motion.div>
 
                 {/* submit button */}
-                <motion.div className="flex justify-end mt-2">
+                <motion.div className="sm:flex hidden justify-end mt-2">
                     <div 
                         className="bg-cyan-400 lg:text-base sm:text-sm text-xs cursor-pointer text-black lg:px-8 sm:px-3 px-2 font-semibold lg:py-2 sm:py-1.5 p-1 rounded"
                     >
