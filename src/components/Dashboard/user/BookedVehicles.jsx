@@ -104,7 +104,7 @@ const Bookings = () => {
                         transition={{ duration: 0.5, delay: index * 0.1 }}
                         className="flex items-center justify-center p-4 lg:gap-x-10 sm:gap-x-5 rounded-lg shadow-md"
                     >
-                        <div className="xl:p-4 flex mt-1 sm:mt-2 xl:tracking-widest">
+                        <div className="xl:p-4 ml-2 flex mt-1 sm:mt-2 xl:tracking-widest">
                             {/* Car Image */}
                             <img
                                 src={car.image}
