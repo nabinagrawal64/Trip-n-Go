@@ -513,7 +513,7 @@ const CabBooking = () => {
                         zoom={13}
                         scrollWheelZoom={false} 
                         touchZoom={true}
-                        className="xl:h-[500px] lg:h-[400px] md:h-[350px] sm:h-[320px] h-screen w-screen"
+                        className="xl:h-[500px] lg:h-[400px] md:h-[350px] sm:h-[320px] h-[90vh] w-screen"
                     >
                         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                         <Marker position={start} />
