@@ -7,6 +7,7 @@ import "leaflet-routing-machine";
 import { motion } from "framer-motion";
 import { FaChevronDown, FaChevronUp, FaLocationArrow, FaPlus, FaRegDotCircle, FaTrash } from "react-icons/fa";
 import "./demo.css"
+import { useNavigate } from "react-router";
 
 // const API_KEY_GOOGLE = "AIzaSyDLKAZoyY16HjFXgv3N7lZ_H-tM4CVJ9eo";
 const API_KEY_GOOGLE = "AIzaSyDLKAZoyY16HjFXgv3N7lZ_H-tM4CVJ9eo  ";
@@ -32,8 +33,10 @@ const CabBooking = () => {
     const [distance, setDistance] = useState(null);
     const [duration, setDuration] = useState(null);
     const [price, setPrice] = useState(null);
+
     const inputRef = useRef(null); // Reference for input box
     const dropdownRef = useRef(null); // Reference for suggestions box
+    const navigate = useNavigate();
 
     useEffect(() => {
         const storedWaypoints = localStorage.getItem("waypoints");
@@ -469,7 +472,7 @@ const CabBooking = () => {
                                 whileTap={{ scale: 0.95 }}
                                 transition={{ type: "spring", stiffness: 200 }}
                                 className="sm:hidden visible bg-cyan-400 mt-2 text-xs cursor-pointer text-black px-2 font-semibold py-1.5 w-fit rounded"    
-                                onClick={getRoute}
+                                onClick={() => navigate("/booking/confirmation")}
                             >
                                 Submit
                             </motion.div>
@@ -526,7 +529,12 @@ const CabBooking = () => {
                 </motion.div>
 
                 {/* submit button */}
-                <motion.div className="sm:flex hidden justify-end mt-2">
+                <motion.div 
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ type: "spring", stiffness: 200 }}
+                    className="sm:flex hidden justify-end mt-2"
+                    onClick={() => navigate("/booking/confirmation")}
+                >
                     <div 
                         className="bg-cyan-400 lg:text-base sm:text-sm text-xs cursor-pointer text-black lg:px-8 sm:px-3 px-2 font-semibold lg:py-2 sm:py-1.5 p-1 rounded"
                     >
