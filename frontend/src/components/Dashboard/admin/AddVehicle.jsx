@@ -108,7 +108,7 @@ const AddVehicle = () => {
                                 />
                                 <button
                                     onClick={() => handleRemoveImage(image.id)}
-                                    className="absolute top-0 right-0 bg-black text-white rounded-full p-1 text-xs"
+                                    className="absolute cursor-pointer top-0 right-0 bg-black text-white rounded-full p-1 text-xs"
                                 >
                                     <FaTimes />
                                 </button>
