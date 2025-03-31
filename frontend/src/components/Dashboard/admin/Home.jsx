@@ -7,6 +7,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Slide } from "react-awesome-reveal";
 import ServiceCard from "../../HomePage/Service";
 import FadeContent from "../../animation/FadeContent";
@@ -222,12 +223,16 @@ const services = [
 ];
 
 const Home = () => {
-
+    const navigate = useNavigate();
     const [visibleCount, setVisibleCount] = useState(3);
 
     const loadMore = () => {
         setVisibleCount((prev) => Math.min(prev + 3, reviews.length));
     };
+
+    const addVehicle = () => {
+        navigate("/admin/add-vehicle");
+    }
 
     return (
         <div className="bg-[#0B1120] flex flex-col justify-start items-start text-white lg:pl-[255px] sm:pl-[200px]">
@@ -243,7 +248,10 @@ const Home = () => {
                     <p className="text-gray-400 lg:mt-4 mt-3 text-wrap md:text-base text-sm sm:text-start text-center">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, assumenda.
                     </p>
-                    <div className="lg:mt-6 mt-4 lg:px-6 px-3 lg:py-3 py-2 sm:mx-0 mx-2 md:text-sm text-xs flex items-center lg:gap-2 gap-1.5 w-fit bg-cyan-400 text-black font-semibold rounded-lg shadow-md hover:bg-cyan-300 transition cursor-pointer">
+                    <div 
+                        className="lg:mt-6 mt-4 lg:px-6 px-3 lg:py-3 py-2 sm:mx-0 mx-2 md:text-sm text-xs flex items-center lg:gap-2 gap-1.5 w-fit bg-cyan-400 text-black font-semibold rounded-lg shadow-md hover:bg-cyan-300 transition cursor-pointer"
+                        onClick={addVehicle}
+                    >
                         <Plus className="lg:size-5 size-4 font-semibold" /> Add More Vehicles
                     </div>
                 </section>

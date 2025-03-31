@@ -12,10 +12,11 @@ import Confirmation from "./pages/Confirmation";
 import Home from "./components/Dashboard/admin/Home";
 import BookingRequest from "./components/Dashboard/admin/BookingRequest";
 import MyVehicles from "./components/Dashboard/admin/MyVehicles";
+import AddVehicle from "./components/Dashboard/admin/AddVehicle";
 
 // for user
-import Favorites from "./components/Dashboard/user/Favorites";
-import Reviews from "./components/Dashboard/user/Reviews";
+// import Favorites from "./components/Dashboard/user/Favorites";
+// import Reviews from "./components/Dashboard/user/Reviews";
 
 //common
 import Profile from "./components/Dashboard/Profile";
@@ -60,6 +61,7 @@ const router = createBrowserRouter([
                     { path: "booking-request", element: <BookingRequest /> },
                     { path: "booked-vehicles", element: <BookedVehicles />},
                     { path: "vehicles", element: <MyVehicles /> },
+                    { path: "add-vehicle", element: <AddVehicle /> },
 
                 ]
             },

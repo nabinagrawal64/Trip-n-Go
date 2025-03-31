@@ -23,7 +23,7 @@ module.exports = {
                 scrollY: {
                   "0%": { transform: "translateY(0%)" },
                   "100%": { transform: "translateY(-100%)" }  // Move upwards
-                }
+                },
               },
               animation: {
                 scrollX: "scrollX var(--duration) linear infinite",

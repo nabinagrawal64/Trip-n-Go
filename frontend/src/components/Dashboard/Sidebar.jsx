@@ -55,7 +55,7 @@ const Sidebar = () => {
     };
 
     return (
-        <div className="fixed flex flex-col min-h-screen bg-[#313131] text-white z-999">
+        <div className="fixed flex flex-col min-h-screen bg-[#313131] text-white z-10">
             
             {/* button for mobile view for user*/}
             <button 
