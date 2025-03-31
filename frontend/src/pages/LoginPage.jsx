@@ -8,6 +8,22 @@ export default function LoginForm( {switchToSignup, handleCloseLogin } ) {
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
+    // const role = "user"; 
+    const role = "admin";
+
+    const handleLogin = () => {
+        if(role === "admin") {
+            navigate('/admin')
+            toast.success('Logged in Successfully !')
+        }
+        else if(role === "user") {
+            navigate('/dashboard/profile')
+            toast.success('Logged in Successfully !')
+        } else {
+            toast.error('Invalid credentials !')
+        }
+    }
+
     return (
         <div className="flex items-center justify-center bg-[#1E1E1E]/80 backdrop-blur-lg">
             <div className="bg-[#3A3A3A] sm:p-6 p-4 rounded-lg shadow-lg sm:w-80 w-70">
@@ -65,10 +81,7 @@ export default function LoginForm( {switchToSignup, handleCloseLogin } ) {
 
                 <button 
                     className="w-full cursor-pointer bg-[#00E1FF] hover:bg-[#00e1ffa8] text-black sm:p-2 p-1 rounded-lg font-bold"
-                    onClick={() => {
-                        navigate('/dashboard/profile')
-                        toast.success('Logged in Successfully !')
-                    }}
+                    onClick={handleLogin}
                 >
                     Log In
                 </button>

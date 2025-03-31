@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FaComment, FaHeart } from "react-icons/fa";
-import ImageModal from "../ImageModal";
+import ImageModal from "./ImageModal";
 
 const posts = [
     {
@@ -81,7 +81,7 @@ const Posts = () => {
     const [selectedPost, setSelectedPost] = useState(null);
 
     return (
-        <div className="text-white min-h-screen sm:p-6 p-4">
+        <div className="text-white min-h-screen sm:p-6 p-4 lg:pl-[290px] sm:pl-[230px]">
             <h2 className="xl:text-3xl lg:text-2xl text-xl mb-5 sm:text-left text-center font-bold">Posts</h2>
             <div className="grid md:grid-cols-3 grid-cols-2 md:gap-5 gap-3">
                 {posts.map((post) => (

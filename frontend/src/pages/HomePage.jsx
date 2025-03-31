@@ -519,8 +519,8 @@ export default function HomePage() {
             <section className="bg-[#111] text-white py-12 lg:px-36 md:px-24 sm:px-16 px-12">
                 <Slide direction="up" triggerOnce>
                     <div className="text-center mb-8">
-                        <h2 className="sm:text-3xl text-2xl md:text-4xl font-bold">Our Services</h2>
-                        <p className="text-gray-400 sm:text-base text-sm md:text-lg">
+                        <h2 className="sm:text-2xl text-xl lg:text-3xl xl:text-4xl font-bold">Our Services</h2>
+                        <p className="text-gray-400 sm:text-sm text-xs md:text-base">
                             Serving You with Quality, Comfort, and Convenience
                         </p>
                     </div>

@@ -91,11 +91,10 @@ const Bookings = () => {
         }
     ];
     
-    
     return (
-        <div className="text-white min-h-screen sm:p-6 p-4">
+        <div className="text-white min-h-screen sm:p-6 p-4 lg:pl-[290px] sm:pl-[230px]">
             <h2 className="xl:text-3xl lg:text-2xl text-xl mx-auto font-bold sm:text-left text-center">Bookings</h2>
-            <div className="col-span-3 -translate-x-3">
+            <div className="col-span-3 flex flex-col items-start">
                 {cars.map((car, index) => (
                     <motion.div
                         key={index}
