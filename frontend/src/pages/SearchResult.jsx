@@ -15,8 +15,7 @@ const FilterCard = ({ title, children, onClear, onApply }) => (
             >
                 <X className="p-0.5 lg:size-5 sm:size-3 size-4 mr-1 mt-0.5 text-black rounded-md bg-white"/>
                 <span 
-                    className="lg:text-base sm:text-xs text-sm"
-                    
+                    className="lg:text-base sm:text-xs text-sm mt-[1px]"
                 >
                     Clear
                 </span>
@@ -45,10 +44,113 @@ const FilterCheckbox = ({ label, checked, onChange }) => (
     </label>
 );
 
+const cars = [
+    {
+        id: 1,
+        image: "https://carento-demo.vercel.app/assets/imgs/cars-listing/cars-listing-1/car-1.png",
+        name: "Audi A3 1.6 TDI S line",
+        company: "Sahu Express",
+        location: "Bhubaneswar, Odisha",
+        vehicleNumber: "OD 02 1234",
+        seats: 7,
+        price: "12",
+        rating: "4.92",
+        reviews: 672,
+        description:
+            "Introducing the epitome of modern sophistication in the realm of compact SUVs – the Seltos K3. Dressed in a captivating blue hue that exudes elegance and flair, this dynamic vehicle stands as a testament to innovation and style. With its sleek design accentuated by striking dark wheels, the Seltos K3 is not merely a mode of transportation but a statement of refined taste and contemporary living.Prepare to embark on a journey where cutting-edge technology meets unparalleled comfort, all wrapped in a package of unparalleled aesthetics. Join us as we delve into the world of the Seltos K3, where every detail is crafted to elevate your driving experience to new heights.",
+        review: "The Audi A3 offers an incredibly smooth and comfortable ride with a touch of luxury. The interiors are spacious, and the fuel efficiency is impressive for a car of this class. A great choice for city drives and long road trips!",
+    },
+    {
+        id: 2,
+        image: "https://carento-demo.vercel.app/assets/imgs/cars-listing/cars-listing-1/car-2.png",
+        name: "BMW X5 M Sport",
+        company: "Royal Rides",
+        location: "Mumbai, Maharashtra",
+        vehicleNumber: "OD 02 1234",
+        seats: 5,
+        price: "15",
+        rating: "4.85",
+        reviews: 523,
+        description:
+            "Introducing the epitome of modern sophistication in the realm of compact SUVs – the Seltos K3. Dressed in a captivating blue hue that exudes elegance and flair, this dynamic vehicle stands as a testament to innovation and style. With its sleek design accentuated by striking dark wheels, the Seltos K3 is not merely a mode of transportation but a statement of refined taste and contemporary living.Prepare to embark on a journey where cutting-edge technology meets unparalleled comfort, all wrapped in a package of unparalleled aesthetics. Join us as we delve into the world of the Seltos K3, where every detail is crafted to elevate your driving experience to new heights.",
+        review: "The BMW X5 M Sport is a powerhouse on the road. It combines performance with comfort seamlessly. The handling is exceptional, and the premium features make every ride feel first-class. Highly recommended for those who love driving in style!",
+    },
+    {
+        id: 3,
+        image: "https://carento-demo.vercel.app/assets/imgs/cars-listing/cars-listing-1/car-3.png",
+        name: "Mercedes-Benz GLC",
+        company: "Luxury Wheels",
+        location: "Delhi, India",
+        vehicleNumber: "OD 02 1234",
+        seats: 5,
+        price: "13",
+        rating: "4.78",
+        reviews: 601,
+        description:
+            "Introducing the epitome of modern sophistication in the realm of compact SUVs – the Seltos K3. Dressed in a captivating blue hue that exudes elegance and flair, this dynamic vehicle stands as a testament to innovation and style. With its sleek design accentuated by striking dark wheels, the Seltos K3 is not merely a mode of transportation but a statement of refined taste and contemporary living.Prepare to embark on a journey where cutting-edge technology meets unparalleled comfort, all wrapped in a package of unparalleled aesthetics. Join us as we delve into the world of the Seltos K3, where every detail is crafted to elevate your driving experience to new heights.",
+        review: "The Mercedes-Benz GLC provides a premium driving experience with top-notch safety features and luxurious interiors. It's perfect for both city commuting and highway cruising, offering a smooth and quiet ride.",
+    },
+    {
+        id: 4,
+        image: "https://carento-demo.vercel.app/assets/imgs/cars-listing/cars-listing-1/car-4.png",
+        name: "Hyundai Creta SX",
+        company: "Smart Rentals",
+        vehicleNumber: "OD 02 1234",
+        location: "Bangalore, Karnataka",
+        seats: 5,
+        price: "10",
+        rating: "4.65",
+        reviews: 482,
+        description:
+            "Introducing the epitome of modern sophistication in the realm of compact SUVs – the Seltos K3. Dressed in a captivating blue hue that exudes elegance and flair, this dynamic vehicle stands as a testament to innovation and style. With its sleek design accentuated by striking dark wheels, the Seltos K3 is not merely a mode of transportation but a statement of refined taste and contemporary living.Prepare to embark on a journey where cutting-edge technology meets unparalleled comfort, all wrapped in a package of unparalleled aesthetics. Join us as we delve into the world of the Seltos K3, where every detail is crafted to elevate your driving experience to new heights.",
+        review: "The Hyundai Creta SX is an excellent choice for those looking for a reliable and stylish SUV. It has a powerful engine, good mileage, and an infotainment system that keeps you entertained on the go.",
+    },
+    {
+        id: 5,
+        image: "https://carento-demo.vercel.app/assets/imgs/cars-listing/cars-listing-1/car-5.png",
+        name: "Toyota Fortuner",
+        company: "Elite Cars",
+        location: "Chennai, Tamil Nadu",
+        vehicleNumber: "OD 02 1234",
+        seats: 7,
+        price: "14",
+        rating: "4.90",
+        reviews: 715,
+        description:
+            "Introducing the epitome of modern sophistication in the realm of compact SUVs – the Seltos K3. Dressed in a captivating blue hue that exudes elegance and flair, this dynamic vehicle stands as a testament to innovation and style. With its sleek design accentuated by striking dark wheels, the Seltos K3 is not merely a mode of transportation but a statement of refined taste and contemporary living.Prepare to embark on a journey where cutting-edge technology meets unparalleled comfort, all wrapped in a package of unparalleled aesthetics. Join us as we delve into the world of the Seltos K3, where every detail is crafted to elevate your driving experience to new heights.",
+        review: "The Toyota Fortuner is the ultimate SUV for adventure lovers. It offers a commanding driving position, a spacious cabin, and excellent off-road capabilities. A great choice for family trips and rugged terrains!",
+    },
+    {
+        id: 6,
+        image: "https://carento-demo.vercel.app/assets/imgs/cars-listing/cars-listing-1/car-1.png",
+        name: "Audi A3 1.6 TDI S line",
+        company: "Sahu Express",
+        location: "Bhubaneswar, Odisha",
+        vehicleNumber: "OD 02 1234",
+        seats: 7,
+        price: "12",
+        rating: "4.92",
+        reviews: 672,
+        description:
+            "Introducing the epitome of modern sophistication in the realm of compact SUVs – the Seltos K3. Dressed in a captivating blue hue that exudes elegance and flair, this dynamic vehicle stands as a testament to innovation and style. With its sleek design accentuated by striking dark wheels, the Seltos K3 is not merely a mode of transportation but a statement of refined taste and contemporary living.Prepare to embark on a journey where cutting-edge technology meets unparalleled comfort, all wrapped in a package of unparalleled aesthetics. Join us as we delve into the world of the Seltos K3, where every detail is crafted to elevate your driving experience to new heights.",
+        review: "The Audi A3 provides a premium experience with smooth acceleration and a well-designed interior. It's an excellent choice for those looking for a combination of performance and elegance.",
+    },
+];
+
 const SearchResult = () => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const maxVisiblePages = 5;
+    const totalPages = Math.ceil(cars.length / maxVisiblePages); //total card rahega yaha
+
+    const startIdx = (currentPage - 1) * maxVisiblePages;
+    const visibleCards = cars.slice(startIdx, startIdx + maxVisiblePages);
 
     const [isOpen, setIsOpen] = useState(false);
     const cardRef = useRef();
+
+    useEffect(() => {
+        window.scrollTo(0, 0); 
+    }, []);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -93,6 +195,26 @@ const SearchResult = () => {
         });
     };
 
+    const goToPage = (page) => {
+        if (page >= 1 && page <= totalPages) {
+            setCurrentPage(page);
+        }
+    };
+
+    const getVisiblePages = () => {
+        if (totalPages <= maxVisiblePages) {
+            return [...Array(totalPages)].map((_, i) => i + 1);
+        }
+
+        if (currentPage <= 2) {
+            return [1, 2, 3, 4, "...", totalPages];
+        } else if (currentPage >= totalPages - 1) {
+            return ["...", totalPages - 3, totalPages - 2, totalPages - 1, totalPages];
+        } else {
+            return ["...", currentPage - 1, currentPage, currentPage + 1, "...", totalPages];
+        }
+    };
+
     return (
         <div className="bg-[#171717] text-white min-h-screen p-6 ">
             {/* Header */}
@@ -105,9 +227,37 @@ const SearchResult = () => {
                 {`Showing 1 – 24 of 11,057 results for "Cars" `}
             </motion.h2>
             
-            <div className="grid grid-cols-1 md:grid-cols-4 xl:max-w-5/6 md:max-w-11/12 mx-auto gap-6">
+            {/* main section */}
+            <div className="grid grid-cols-1 md:grid-cols-4 xl:max-w-5/6 md:max-w-11/12 mx-auto lg:gap-6 sm:gap-3">
                 {/* Sidebar Filters for large screen */}
                 <div className="col-span-1 sm:inline hidden space-y-6 mt-10 xl:mr-10 ">
+
+                    {/* Calendar */}
+                    <FilterCard 
+                        title="Choose Date" 
+                        onClear={() => setSelectedFilters({ ...selectedFilters, date: null })} 
+                        onApply={handleApplyFilters}
+                    >   
+                        <div className="lg:space-y-3 space-y-2 lg:text-base sm:text-xs">
+                            <label htmlFor="startDate">Start Date</label>
+                            <input
+                                type="datetime-local"
+                                id="startDate"
+                                value={selectedFilters.date || ""}
+                                className="w-full mt-1 text-gray-300 lg:p-2 sm:p-1 rounded-md border border-gray-400 cursor-pointer"
+                                onChange={(e) => setSelectedFilters({ ...selectedFilters, date: e.target.value })}
+                            />
+                            <label htmlFor="endDate">End Date</label>
+                            <input
+                                type="datetime-local"
+                                id="endDate"
+                                value={selectedFilters.date || ""}
+                                className="w-full mt-1 text-gray-300 lg:p-2 sm:p-1 rounded-md border border-gray-400cursor-pointer"
+                                onChange={(e) => setSelectedFilters({ ...selectedFilters, date: e.target.value })}
+                            />
+                        </div>
+                    </FilterCard>
+
                     {/* Price Range */}
                     <FilterCard 
                         title="Price Range" 
@@ -210,6 +360,31 @@ const SearchResult = () => {
                             ✕
                         </button>
 
+                        <FilterCard 
+                            title="Choose Date" 
+                            onClear={() => setSelectedFilters({ ...selectedFilters, date: null })} 
+                            onApply={handleApplyFilters}
+                        >   
+                            <div className="space-y-1.5 text-xs">
+                                <label htmlFor="startDate">Start Date</label>
+                                <input
+                                    type="datetime-local"
+                                    id="startDate"
+                                    value={selectedFilters.date || ""}
+                                    className="w-full mt-1 text-gray-300 p-1 rounded-md border border-gray-400 cursor-pointer"
+                                    onChange={(e) => setSelectedFilters({ ...selectedFilters, date: e.target.value })}
+                                />
+                                <label htmlFor="endDate">End Date</label>
+                                <input
+                                    type="datetime-local"
+                                    id="endDate"
+                                    value={selectedFilters.date || ""}
+                                    className="w-full mt-1 text-gray-300 p-1 rounded-md border border-gray-400cursor-pointer"
+                                    onChange={(e) => setSelectedFilters({ ...selectedFilters, date: e.target.value })}
+                                />
+                            </div>
+                        </FilterCard>
+
                         {/* Price Range */}
                         <FilterCard 
                             title="Price Range" 
@@ -293,7 +468,48 @@ const SearchResult = () => {
                 </div>
 
                 {/* Car Listings */}
-                <ListCard />
+                <div className="col-span-3 space-y-3">
+                    {visibleCards.map((card) => (
+                        <ListCard key={card.id} card={card} />
+                    ))}
+                </div>
+            </div>
+
+            {/* page changer */}
+            <div className="flex items-center justify-center lg:gap-2 lg:p-4 sm:gap-1.5 sm:p-3 gap-1 p-2 lg:text-base sm:text-sm text-xs rounded-lg">
+                {/* Left Arrow (Hidden on first page) */}
+                {currentPage > 1 && (
+                    <button 
+                        className="bg-[#222222] text-white lg:px-3 lg:py-2 sm:px-2 sm:py-1 px-1 py-0.5 rounded-md"
+                        onClick={() => goToPage(currentPage - 1)}
+                    > 
+                        ←
+                    </button>
+                )}
+
+                {/* Page Numbers */}
+                {getVisiblePages().map((page, index) => (
+                    <button
+                        key={index}
+                        className={`lg:px-3.5 lg:py-2 sm:px-2.5 sm:py-1 px-1.5 py-0.5 rounded-md ${
+                            currentPage === page ? "bg-[#4B4A4A] text-white" : "bg-[#222222] text-white"
+                        }`}
+                        onClick={() => typeof page === "number" && goToPage(page)}
+                        disabled={page === "..."}
+                    >
+                        {page}
+                    </button>
+                ))}
+
+                {/* Right Arrow (Hidden on last page) */}
+                {currentPage < totalPages && (
+                    <button 
+                        className="bg-[#222222] text-white lg:px-3 lg:py-2 sm:px-2 sm:py-1 px-1 py-0.5 rounded-md"
+                        onClick={() => goToPage(currentPage + 1)}
+                    >
+                        →
+                    </button>
+                )}
             </div>
         </div>
     )

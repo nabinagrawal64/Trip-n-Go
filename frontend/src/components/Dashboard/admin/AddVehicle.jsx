@@ -28,7 +28,6 @@ const AddVehicle = () => {
     const [selectedImage, setSelectedImage] = useState(null);
     const modalRef = useRef(null);
 
-
     const openModal = (imageSrc) => {
         setSelectedImage(imageSrc);
         setIsModalOpen(true);
